@@ -16,7 +16,7 @@ import Foundation
 @objc class CatalogDataSource : NSObject {
 
     var objects = [AnyObject]()
-    @IBOutlet var delegate : CatalogDataSourceDelegate?
+    weak var delegate : CatalogDataSourceDelegate?
 
     override init(){
         println("Loading Catalog Data Source")
