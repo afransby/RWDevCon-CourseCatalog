@@ -16,7 +16,21 @@
 		C782E8A91A341AA6006A9DDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C782E8A01A341AA6006A9DDE /* Main.storyboard */; };
 		C782E8AC1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8AB1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift */; };
 		C782E8AE1A34D93C006A9DDE /* FunctionalOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8AD1A34D93C006A9DDE /* FunctionalOperators.swift */; };
+		C782E8C51A34E1E6006A9DDE /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
+		C782E8C91A34E206006A9DDE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C782E8C71A34E206006A9DDE /* Nimble.framework */; };
+		C782E8CA1A34E206006A9DDE /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C782E8C81A34E206006A9DDE /* Quick.framework */; };
+		C782E8CC1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C782E8BB1A34E1C0006A9DDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C782E8641A3418DE006A9DDE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C782E86B1A3418DE006A9DDE;
+			remoteInfo = CourseCatalog;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C782E86C1A3418DE006A9DDE /* CourseCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +44,12 @@
 		C782E8A21A341AA6006A9DDE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C782E8AB1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseraCatalogCommandHandler.swift; sourceTree = "<group>"; };
 		C782E8AD1A34D93C006A9DDE /* FunctionalOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalOperators.swift; sourceTree = "<group>"; };
+		C782E8B51A34E1C0006A9DDE /* CourseCatalogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseCatalogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C782E8C21A34E1E6006A9DDE /* Courses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Courses.json; sourceTree = "<group>"; };
+		C782E8C41A34E1E6006A9DDE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C782E8C71A34E206006A9DDE /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../../../Carthage.build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		C782E8C81A34E206006A9DDE /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../../../Carthage.build/iOS/Quick.framework; sourceTree = "<group>"; };
+		C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogDataSourceSpecs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +60,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C782E8B21A34E1C0006A9DDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C782E8C91A34E206006A9DDE /* Nimble.framework in Frameworks */,
+				C782E8CA1A34E206006A9DDE /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -47,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				C782E8971A341AA6006A9DDE /* Application */,
+				C782E8C01A34E1E6006A9DDE /* Tests */,
 				C782E86D1A3418DE006A9DDE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				C782E86C1A3418DE006A9DDE /* CourseCatalog.app */,
+				C782E8B51A34E1C0006A9DDE /* CourseCatalogTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +115,34 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		C782E8C01A34E1E6006A9DDE /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */,
+				C782E8C11A34E1E6006A9DDE /* Fixtures */,
+				C782E8C31A34E1E6006A9DDE /* Support */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C782E8C11A34E1E6006A9DDE /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				C782E8C21A34E1E6006A9DDE /* Courses.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		C782E8C31A34E1E6006A9DDE /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				C782E8C71A34E206006A9DDE /* Nimble.framework */,
+				C782E8C81A34E206006A9DDE /* Quick.framework */,
+				C782E8C41A34E1E6006A9DDE /* Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,6 +163,24 @@
 			productReference = C782E86C1A3418DE006A9DDE /* CourseCatalog.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C782E8B41A34E1C0006A9DDE /* CourseCatalogTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C782E8BD1A34E1C0006A9DDE /* Build configuration list for PBXNativeTarget "CourseCatalogTests" */;
+			buildPhases = (
+				C782E8B11A34E1C0006A9DDE /* Sources */,
+				C782E8B21A34E1C0006A9DDE /* Frameworks */,
+				C782E8B31A34E1C0006A9DDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C782E8BC1A34E1C0006A9DDE /* PBXTargetDependency */,
+			);
+			name = CourseCatalogTests;
+			productName = CourseCatalogTests;
+			productReference = C782E8B51A34E1C0006A9DDE /* CourseCatalogTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -115,6 +192,10 @@
 				TargetAttributes = {
 					C782E86B1A3418DE006A9DDE = {
 						CreatedOnToolsVersion = 6.2;
+					};
+					C782E8B41A34E1C0006A9DDE = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = C782E86B1A3418DE006A9DDE;
 					};
 				};
 			};
@@ -132,6 +213,7 @@
 			projectRoot = "";
 			targets = (
 				C782E86B1A3418DE006A9DDE /* CourseCatalog */,
+				C782E8B41A34E1C0006A9DDE /* CourseCatalogTests */,
 			);
 		};
 /* End PBXProject section */
@@ -143,6 +225,14 @@
 			files = (
 				C782E8A81A341AA6006A9DDE /* LaunchScreen.xib in Resources */,
 				C782E8A91A341AA6006A9DDE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C782E8B31A34E1C0006A9DDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C782E8C51A34E1E6006A9DDE /* Courses.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +253,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C782E8B11A34E1C0006A9DDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C782E8CC1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C782E8BC1A34E1C0006A9DDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C782E86B1A3418DE006A9DDE /* CourseCatalog */;
+			targetProxy = C782E8BB1A34E1C0006A9DDE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C782E89E1A341AA6006A9DDE /* LaunchScreen.xib */ = {
@@ -286,6 +392,45 @@
 			};
 			name = Release;
 		};
+		C782E8BE1A34E1C0006A9DDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					/Users/saul/Projects/rwdevcon/CourseCatalog/Carthage.build/iOS,
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Tests/Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CourseCatalog.app/CourseCatalog";
+			};
+			name = Debug;
+		};
+		C782E8BF1A34E1C0006A9DDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					/Users/saul/Projects/rwdevcon/CourseCatalog/Carthage.build/iOS,
+				);
+				INFOPLIST_FILE = Tests/Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CourseCatalog.app/CourseCatalog";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -306,6 +451,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C782E8BD1A34E1C0006A9DDE /* Build configuration list for PBXNativeTarget "CourseCatalogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C782E8BE1A34E1C0006A9DDE /* Debug */,
+				C782E8BF1A34E1C0006A9DDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
