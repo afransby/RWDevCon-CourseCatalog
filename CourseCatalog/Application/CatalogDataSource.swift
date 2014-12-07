@@ -22,6 +22,11 @@ import Foundation
         println("Loading Catalog Data Source")
     }
 
+    func loadCourses() {
+        CourseCatalogRequest().send() { response in
+        }
+    }
+
     func addNewObject() {
         addObjectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
     }
@@ -40,3 +45,14 @@ import Foundation
         return objects[indexPath.row] as NSDate
     }
 }
+
+struct CourseCatalogRequest {
+    func send(completion: (response:CourseCatalogResponse) -> ()) {
+        completion(response: CourseCatalogResponse())
+    }
+}
+
+struct CourseCatalogResponse {
+
+}
+

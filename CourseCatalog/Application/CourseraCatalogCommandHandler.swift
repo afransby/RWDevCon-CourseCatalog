@@ -13,19 +13,29 @@ protocol Command
     func execute()
 }
 
-struct RetrieveCourseraCatalogCommand : Command {
-
+class HTTPCommand : Command
+{
     func execute()
     {
-
+        //build request from parameters
+        //set request
     }
+    var path = ""
+}
+
+class RetrieveCourseraCatalogCommand : HTTPCommand
+{
+    override var path : String {
+        return "courses"
+    }
+
 }
 
 struct NetworkRequestCommandHandler
 {
     var baseURL = NSURL(string: "https://api.coursera.org/api/catalog.v1/")!
 
-    func execute(command:Command)
+    func execute(command:HTTPCommand)
     {
     }
 }

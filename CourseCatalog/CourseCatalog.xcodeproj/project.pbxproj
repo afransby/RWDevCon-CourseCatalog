@@ -14,7 +14,6 @@
 		C782E8A71A341AA6006A9DDE /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E89C1A341AA6006A9DDE /* CourseListViewController.swift */; };
 		C782E8A81A341AA6006A9DDE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C782E89E1A341AA6006A9DDE /* LaunchScreen.xib */; };
 		C782E8A91A341AA6006A9DDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C782E8A01A341AA6006A9DDE /* Main.storyboard */; };
-		C782E8AC1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8AB1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift */; };
 		C782E8AE1A34D93C006A9DDE /* FunctionalOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8AD1A34D93C006A9DDE /* FunctionalOperators.swift */; };
 		C782E8C51A34E1E6006A9DDE /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
 		C782E8C91A34E206006A9DDE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C782E8C71A34E206006A9DDE /* Nimble.framework */; };
@@ -246,7 +245,6 @@
 				C782E8AE1A34D93C006A9DDE /* FunctionalOperators.swift in Sources */,
 				C782E8A71A341AA6006A9DDE /* CourseListViewController.swift in Sources */,
 				C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */,
-				C782E8AC1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift in Sources */,
 				C782E8A41A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift in Sources */,
 				C782E8A51A341AA6006A9DDE /* CatalogDataSource.swift in Sources */,
 				C782E8A61A341AA6006A9DDE /* CourseViewController.swift in Sources */,
