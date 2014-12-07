@@ -6,15 +6,16 @@
 //  Copyright (c) 2014 Magical Panda. All rights reserved.
 //
 
-import Foundation
+import CoreData
 
 @objc protocol CatalogDataSourceDelegate {
     func dataSourceDidAddNewObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
     func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
 }
 
-@objc class CatalogDataSource : NSObject {
-
+@objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
+{
+    var courses : NSFetchedResultsController?
     var objects = [AnyObject]()
     weak var delegate : CatalogDataSourceDelegate?
 

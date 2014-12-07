@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C767777F1A34FEE8006C8BC1 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C782E8C71A34E206006A9DDE /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C76777801A34FEE8006C8BC1 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C782E8C81A34E206006A9DDE /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8981A341AA6006A9DDE /* AppDelegate.swift */; };
 		C782E8A41A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8991A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift */; };
 		C782E8A51A341AA6006A9DDE /* CatalogDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E89A1A341AA6006A9DDE /* CatalogDataSource.swift */; };
@@ -19,6 +21,10 @@
 		C782E8C91A34E206006A9DDE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C782E8C71A34E206006A9DDE /* Nimble.framework */; };
 		C782E8CA1A34E206006A9DDE /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C782E8C81A34E206006A9DDE /* Quick.framework */; };
 		C782E8CC1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */; };
+		C7B366E61A350062008E6C10 /* CourseDataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366E51A350061008E6C10 /* CourseDataImporter.swift */; };
+		C7B366E91A350068008E6C10 /* Courses.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7B366E71A350068008E6C10 /* Courses.xcdatamodeld */; };
+		C7B366EB1A35006F008E6C10 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366EA1A35006F008E6C10 /* Course.swift */; };
+		C7B366ED1A350077008E6C10 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366EC1A350077008E6C10 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +36,20 @@
 			remoteInfo = CourseCatalog;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C767777E1A34FEDC006C8BC1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C767777F1A34FEE8006C8BC1 /* Nimble.framework in CopyFiles */,
+				C76777801A34FEE8006C8BC1 /* Quick.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C782E86C1A3418DE006A9DDE /* CourseCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +69,10 @@
 		C782E8C71A34E206006A9DDE /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../../../Carthage.build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		C782E8C81A34E206006A9DDE /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../../../Carthage.build/iOS/Quick.framework; sourceTree = "<group>"; };
 		C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogDataSourceSpecs.swift; sourceTree = "<group>"; };
+		C7B366E51A350061008E6C10 /* CourseDataImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDataImporter.swift; sourceTree = "<group>"; };
+		C7B366E81A350068008E6C10 /* Courses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Courses.xcdatamodel; sourceTree = "<group>"; };
+		C7B366EA1A35006F008E6C10 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = SOURCE_ROOT; };
+		C7B366EC1A350077008E6C10 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,12 +117,11 @@
 			isa = PBXGroup;
 			children = (
 				C782E8981A341AA6006A9DDE /* AppDelegate.swift */,
-				C782E89C1A341AA6006A9DDE /* CourseListViewController.swift */,
-				C782E8991A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift */,
-				C782E89A1A341AA6006A9DDE /* CatalogDataSource.swift */,
-				C782E89B1A341AA6006A9DDE /* CourseViewController.swift */,
+				C7B366EE1A35007E008E6C10 /* Views */,
+				C7B366F11A3500A9008E6C10 /* Controllers */,
+				C7B366EF1A35008B008E6C10 /* Models */,
 				C782E8AB1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift */,
-				C782E8AD1A34D93C006A9DDE /* FunctionalOperators.swift */,
+				C7B366F01A350097008E6C10 /* Helpers */,
 				C782E89E1A341AA6006A9DDE /* LaunchScreen.xib */,
 				C782E8A01A341AA6006A9DDE /* Main.storyboard */,
 				C782E89D1A341AA6006A9DDE /* Support */,
@@ -142,6 +165,43 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		C7B366EE1A35007E008E6C10 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C782E89C1A341AA6006A9DDE /* CourseListViewController.swift */,
+				C782E89B1A341AA6006A9DDE /* CourseViewController.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		C7B366EF1A35008B008E6C10 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C7B366EC1A350077008E6C10 /* CoreDataStack.swift */,
+				C7B366E71A350068008E6C10 /* Courses.xcdatamodeld */,
+				C7B366EA1A35006F008E6C10 /* Course.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		C7B366F01A350097008E6C10 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C782E8AD1A34D93C006A9DDE /* FunctionalOperators.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		C7B366F11A3500A9008E6C10 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C782E89A1A341AA6006A9DDE /* CatalogDataSource.swift */,
+				C7B366E51A350061008E6C10 /* CourseDataImporter.swift */,
+				C782E8991A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -169,6 +229,7 @@
 				C782E8B11A34E1C0006A9DDE /* Sources */,
 				C782E8B21A34E1C0006A9DDE /* Frameworks */,
 				C782E8B31A34E1C0006A9DDE /* Resources */,
+				C767777E1A34FEDC006C8BC1 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -242,10 +303,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7B366EB1A35006F008E6C10 /* Course.swift in Sources */,
+				C7B366E91A350068008E6C10 /* Courses.xcdatamodeld in Sources */,
 				C782E8AE1A34D93C006A9DDE /* FunctionalOperators.swift in Sources */,
 				C782E8A71A341AA6006A9DDE /* CourseListViewController.swift in Sources */,
 				C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */,
+				C7B366ED1A350077008E6C10 /* CoreDataStack.swift in Sources */,
 				C782E8A41A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift in Sources */,
+				C7B366E61A350062008E6C10 /* CourseDataImporter.swift in Sources */,
 				C782E8A51A341AA6006A9DDE /* CatalogDataSource.swift in Sources */,
 				C782E8A61A341AA6006A9DDE /* CourseViewController.swift in Sources */,
 			);
@@ -457,8 +522,22 @@
 				C782E8BF1A34E1C0006A9DDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C7B366E71A350068008E6C10 /* Courses.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C7B366E81A350068008E6C10 /* Courses.xcdatamodel */,
+			);
+			currentVersion = C7B366E81A350068008E6C10 /* Courses.xcdatamodel */;
+			path = Courses.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C782E8641A3418DE006A9DDE /* Project object */;
 }
