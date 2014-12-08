@@ -13,15 +13,10 @@ public class Course: NSManagedObject {
 
     @NSManaged public var remoteID: NSNumber?
     @NSManaged public var name: String?
-    @NSManaged var shortName: String
-    @NSManaged var smallIcon: AnyObject
-    @NSManaged var largeIcon: AnyObject
-    @NSManaged var instructorName: String
-    @NSManaged var summary: String
-    @NSManaged var syllabus: String
-
-    func description() -> String {
-        return "Course: \(name)"
-    }
-
+    @NSManaged public var shortName: String?
+    @NSManaged public var smallIcon: AnyObject?
+    @NSManaged public var largeIcon: AnyObject?
+    @NSManaged public var instructorName: String?
+    @NSManaged public var summary: String?
+    @NSManaged public var syllabus: String?
 }
