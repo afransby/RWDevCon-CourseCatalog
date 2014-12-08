@@ -15,7 +15,9 @@ public class CoreDataStack
         let searchPaths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)
         let searchPath : String = searchPaths.first? as String
         let storeURL = NSURL(fileURLWithPath: searchPath)!
-
+        if !storeURL.checkResourceIsReachableAndReturnError(nil) {
+            NSFileManager.defaultManager().createDirectoryAtURL(storeURL, withIntermediateDirectories: true, attributes: nil, error: nil)
+        }
         if let storeName = self.storeName {
             return storeURL.URLByAppendingPathComponent(storeName)
         }
@@ -71,14 +73,22 @@ public class CoreDataStack
     }()
 
     private func configureCoordinator(coordinator:NSPersistentStoreCoordinator) {
+        var error : NSError?
+        var store : NSPersistentStore?
         switch (storeURL) {
         case .Some(let storeURL):
-            coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil, error: nil)
+            let options = [NSSQLitePragmasOption : ["journal_mode": "DELETE"]]
+            store = coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: options, error: &error)
         case .None:
-            coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: nil)
+            store = coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: &error)
         }
-//        println("Loaded Coordinator: \(coordinator)")
-//        println("-- Stores: \(coordinator.persistentStores)")
+        println("Loaded Coordinator: \(coordinator)")
+        if let store = store {
+            println("-- Added Store: \(store)")
+        }
+        if let error = error {
+            println("ERROR: \(error)")
+        }
     }
 
     private lazy var model : NSManagedObjectModel = {
@@ -91,14 +101,39 @@ public class CoreDataStack
     }()
 }
 
+func entityNameFromType<T : NSManagedObject>(type:T.Type) -> String? {
+    return NSStringFromClass(type).componentsSeparatedByString(".").last
+}
+
 extension CoreDataStack
-{   //CRUD
-    public func create<T : NSManagedObject>(type:T.Type) -> T? {
-        return create(type, inContext: context)
+{
+    func find<T : NSManagedObject>(type:T.Type, predicate:NSPredicate) -> [T]?
+    {
+        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
+        var error : NSError?
+        let result = mainContext.executeFetchRequest(request, error: &error) as? [T]
+        return result
     }
 
-    func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T? {
-        if let entityName = NSStringFromClass(type).componentsSeparatedByString(".").last
+    func exists<T : NSManagedObject>(type:T.Type, predicate:NSPredicate) -> Bool
+    {
+        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
+        request.predicate = predicate
+
+        var error : NSError?
+        let count = mainContext.countForFetchRequest(request, error: &error)
+        return count > 0
+    }
+
+    //CRUD
+    public func create<T : NSManagedObject>(type:T.Type) -> T?
+    {
+        return create(type, inContext: mainContext)
+    }
+
+    func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T?
+    {
+        if let entityName = entityNameFromType(type)
         {
             if let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context) {
                 let entity = T(entity: entityDescription, insertIntoManagedObjectContext: context) as T
@@ -106,5 +141,18 @@ extension CoreDataStack
             }
         }
         return .None
+    }
+
+    public func save() {
+        saveUsing(Context: context)
+    }
+    
+    func saveUsing(Context context:NSManagedObjectContext)
+    {
+        var error : NSError?
+        let saved = context.save(&error)
+        if !saved {
+            NSLog("Error saving: \(error)")
+        }
     }
 }

@@ -15,45 +15,53 @@ import CoreData
 
 @objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
 {
-    var courses : NSFetchedResultsController?
-    var objects = [AnyObject]()
+    lazy var courses : NSFetchedResultsController = {
+        let request = NSFetchRequest(entityName: "Course")
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        let controller = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.stack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        controller.delegate = self
+        return controller
+    }()
+
+//    var objects = [AnyObject]()
+    let stack = CoreDataStack(storeName: "Catalog.sqlite")
     weak var delegate : CatalogDataSourceDelegate?
 
     override init(){
         println("Loading Catalog Data Source")
+        super.init()
+        loadCourses()
     }
 
-    func loadCourses() {
-        CourseCatalogRequest().send() { response in
+    func loadCourses()
+    {
+        let importer = CourseDataImporter(stack: stack)
+        importer.importJSONDataInResourceNamed("Courses.json")
+        stack.save()
+
+        var error : NSError?
+        let success = courses.performFetch(&error)
+        if !success
+        {
+            NSLog("Error fetching courses: \(error)")
         }
     }
 
-    func addNewObject() {
-        addObjectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-    }
-    
-    func addObjectAtIndexPath(indexPath:NSIndexPath) {
-        objects.insert(NSDate(), atIndex: indexPath.row)
-        delegate?.dataSourceDidAddNewObject(self, atIndexPath: indexPath)
+    func objectAtIndexPath(indexPath:NSIndexPath) -> Course {
+        return courses.objectAtIndexPath(indexPath) as Course
     }
 
-    func removeObjectAtIndexPath(indexPath:NSIndexPath) {
-        objects.removeAtIndex(indexPath.row)
-        delegate?.dataSourceDidRemoveObject(self, atIndexPath: indexPath)
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch(type) {
+        case .Insert:
+            delegate?.dataSourceDidAddNewObject(self, atIndexPath: newIndexPath!)
+        case .Delete:
+            delegate?.dataSourceDidRemoveObject(self, atIndexPath: indexPath!)
+        case .Update:
+            println("Updated row \(indexPath!)")
+        case .Move:
+            println("Moved row from \(indexPath!) to \(newIndexPath!)")
+        }
     }
-
-    func objectAtIndexPath(indexPath:NSIndexPath) -> NSDate {
-        return objects[indexPath.row] as NSDate
-    }
-}
-
-struct CourseCatalogRequest {
-    func send(completion: (response:CourseCatalogResponse) -> ()) {
-        completion(response: CourseCatalogResponse())
-    }
-}
-
-struct CourseCatalogResponse {
-
 }
 

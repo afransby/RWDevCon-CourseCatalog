@@ -12,24 +12,55 @@ public class CourseDataImporter: NSObject {
 
     public var results : [Course] = []
 
-    let stack : CoreDataStack = CoreDataStack()
+    let stack : CoreDataStack
 
-    public func importData(data:NSDictionary) {
+    public init(stack:CoreDataStack = CoreDataStack()) {
+        self.stack = stack
+    }
+
+    func importJSONDataInResourceNamed(name:String, inBundle bundle:NSBundle = NSBundle.mainBundle())
+    {
+        if let resourceURL = bundle.URLForResource(name.stringByDeletingPathExtension, withExtension: name.pathExtension) {
+            let inputStream = NSInputStream(URL: resourceURL)
+            inputStream?.open()
+            if let json = NSJSONSerialization.JSONObjectWithStream(inputStream!, options: nil, error: nil) as? NSDictionary {
+                importData(json)
+            }
+        }
+    }
+
+    public func importData(data:NSDictionary)
+    {
         let elements = data["elements"] as? [AnyObject]
+        let stack = self.stack
+        let existTemplate = NSPredicate(format: "remoteID = $REMOTE_ID")!
         results = elements!.map { elementInfo in
 
+            let remoteID : NSNumber? = elementInfo["id"] >>> JSONParse
+            let existsFilter = existTemplate.predicateWithSubstitutionVariables(["REMOTE_ID": remoteID!])
             let course = self.createCourse <^>
-                            elementInfo["id"] >>> JSONParse <*>
-                            elementInfo["name"] >>> JSONParse
+                            stack <*>
+                            existsFilter <*>
+                            remoteID <*>
+                            elementInfo["name"] >>> JSONParse <*>
+                            elementInfo["shortName"] >>> JSONParse
             return course!
         }
     }
 
-    func createCourse(remoteID:NSNumber)(name:String) -> Course
+    func createCourse(stack:CoreDataStack)(uniquenessFilter:NSPredicate)(remoteID:NSNumber)(name:String)(shortName:String) -> Course
     {
-        let course = self.stack.create(Course.self)!
-        course.remoteID = remoteID
+        var course : Course
+        if !stack.exists(Course.self, predicate: uniquenessFilter) {
+            course = stack.create(Course.self)!
+            course.remoteID = remoteID
+        } else {
+            let result = stack.find(Course.self, predicate: uniquenessFilter)!
+            course = result.first!
+        }
+
         course.name = name
+        course.shortName = shortName
         return course
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C767777F1A34FEE8006C8BC1 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C782E8C71A34E206006A9DDE /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C76777801A34FEE8006C8BC1 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C782E8C81A34E206006A9DDE /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C76A6A9E1A357B3D001440C5 /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
 		C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8981A341AA6006A9DDE /* AppDelegate.swift */; };
 		C782E8A41A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8991A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift */; };
 		C782E8A51A341AA6006A9DDE /* CatalogDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E89A1A341AA6006A9DDE /* CatalogDataSource.swift */; };
@@ -286,6 +287,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C76A6A9E1A357B3D001440C5 /* Courses.json in Resources */,
 				C782E8A81A341AA6006A9DDE /* LaunchScreen.xib in Resources */,
 				C782E8A91A341AA6006A9DDE /* Main.storyboard in Resources */,
 			);

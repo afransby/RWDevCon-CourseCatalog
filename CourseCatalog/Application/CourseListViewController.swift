@@ -65,7 +65,7 @@ import UIKit
 
     func configureCourseViewController(controller:CourseViewController, indexPath:NSIndexPath)
     {
-        let object = dataSource.objectAtIndexPath(indexPath) as NSDate
+        let object = dataSource.objectAtIndexPath(indexPath)
         controller.detailItem = object
         controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
         controller.navigationItem.leftItemsSupplementBackButton = true
