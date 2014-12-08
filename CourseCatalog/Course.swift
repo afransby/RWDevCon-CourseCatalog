@@ -11,7 +11,7 @@ import CoreData
 
 public class Course: NSManagedObject {
 
-    @NSManaged var name: String
+    @NSManaged public var name: String?
     @NSManaged var shortName: String
     @NSManaged var remoteID: NSNumber
     @NSManaged var smallIcon: AnyObject
@@ -20,4 +20,7 @@ public class Course: NSManagedObject {
     @NSManaged var summary: String
     @NSManaged var syllabus: String
 
+    func description() -> String {
+        return "Course: \(name)"
+    }
 }

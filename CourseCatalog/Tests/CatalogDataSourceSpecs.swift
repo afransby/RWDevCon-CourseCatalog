@@ -7,9 +7,21 @@ class CatalogDataSourceSpecs: QuickSpec {
 
         describe("importing") {
 
+            let testImporter = CourseDataImporter()
             
             beforeSuite {
                 let testContent = Fixtures().jsonContent(Named: "Courses.json")
+                testImporter.importData(testContent)
+            }
+
+            it("should have correct number of elements") {
+                expect(testImporter.results.count) == 875
+            }
+
+            it("elements should have a name") {
+                for course in testImporter.results {
+                    expect(course.name).toNot(beNil())
+                }
             }
         }
     }
@@ -17,11 +29,12 @@ class CatalogDataSourceSpecs: QuickSpec {
 
 struct Fixtures
 {
-    func jsonContent(Named fileName:String) -> NSDictionary? {
+    func jsonContent(Named fileName:String) -> NSDictionary {
 
         let bundle = NSBundle(identifier: "com.magicalpanda.CourseCatalogTests")
         let fileURL = bundle?.URLForResource(fileName.stringByDeletingPathExtension, withExtension: fileName.pathExtension)
         let inputStream = NSInputStream(URL: fileURL!)!
-        return NSJSONSerialization.JSONObjectWithStream(inputStream, options: nil, error: nil) as NSDictionary?
+        inputStream.open()
+        return NSJSONSerialization.JSONObjectWithStream(inputStream, options: nil, error: nil) as? NSDictionary ?? [:]
     }
 }

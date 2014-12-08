@@ -11,7 +11,17 @@ import UIKit
 public class CourseDataImporter: NSObject {
 
     public var results : [Course] = []
-    public func importData(data:NSDictionary?) {
-        
+
+    let stack : CoreDataStack = CoreDataStack()
+
+    public func importData(data:NSDictionary) {
+        let elements = data["elements"] as? [AnyObject]
+        results = elements!.map { elementInfo in
+//            elementInfo["id"]
+            let course = self.stack.create(Course.self)!
+            println("Course: \(course.name)")
+            return course
+        }
+        println("Sample result: \(results.first!)")
     }
 }
