@@ -19,9 +19,8 @@ class CatalogDataSourceSpecs: QuickSpec {
             }
 
             it("elements should have a name") {
-                for course in testImporter.results {
-                    expect(course.name).toNot(beNil())
-                }
+                let course = testImporter.results.first!
+                expect(course.name).toNot(beNil())
             }
         }
     }

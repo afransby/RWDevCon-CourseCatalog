@@ -44,21 +44,6 @@ public class CoreDataStack
         self.storeURL = url
     }
 
-    public func create<T : NSManagedObject>(type:T.Type) -> T? {
-        return create(type, inContext: context)
-    }
-
-    func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T? {
-        if let entityName = NSStringFromClass(type).componentsSeparatedByString(".").last
-        {
-            if let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context) {
-                let entity = T(entity: entityDescription, insertIntoManagedObjectContext: context) as T
-                return .Some(entity)
-            }
-        }
-        return .None
-    }
-
     var mainContext : NSManagedObjectContext {
         return context
     }
@@ -92,16 +77,34 @@ public class CoreDataStack
         case .None:
             coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: nil)
         }
-        println("Loaded Coordinator: \(coordinator)")
-        println("-- Stores: \(coordinator.persistentStores)")
+//        println("Loaded Coordinator: \(coordinator)")
+//        println("-- Stores: \(coordinator.persistentStores)")
     }
 
     private lazy var model : NSManagedObjectModel = {
         let bundle = NSBundle(forClass: CoreDataStack.self)
         let model = NSManagedObjectModel.mergedModelFromBundles([bundle])!
-        println("Loaded Model: \(model.entityVersionHashesByName)")
-        println("-- from Bundle: \(bundle)")
-        println("-- Model: \(model.entities)")
+//        println("Loaded Model: \(model.entityVersionHashesByName)")
+//        println("-- from Bundle: \(bundle)")
+//        println("-- Model: \(model.entities)")
         return model
     }()
+}
+
+extension CoreDataStack
+{   //CRUD
+    public func create<T : NSManagedObject>(type:T.Type) -> T? {
+        return create(type, inContext: context)
+    }
+
+    func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T? {
+        if let entityName = NSStringFromClass(type).componentsSeparatedByString(".").last
+        {
+            if let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context) {
+                let entity = T(entity: entityDescription, insertIntoManagedObjectContext: context) as T
+                return .Some(entity)
+            }
+        }
+        return .None
+    }
 }

@@ -26,3 +26,12 @@ func <*><A, B>(f: (A -> B)?, a: A?) -> B? {
     }
     return .None
 }
+
+infix operator >>> { associativity left precedence 150 }
+func >>><A, B>(a: A?, f: A -> B?) -> B? {
+    if let x = a {
+        return f(x)
+    } else {
+        return .None
+    }
+}

@@ -17,11 +17,27 @@ public class CourseDataImporter: NSObject {
     public func importData(data:NSDictionary) {
         let elements = data["elements"] as? [AnyObject]
         results = elements!.map { elementInfo in
-//            elementInfo["id"]
-            let course = self.stack.create(Course.self)!
-            println("Course: \(course.name)")
-            return course
+
+            let course = self.createCourse <^>
+                            elementInfo["id"] >>> JSONParse <*>
+                            elementInfo["name"] >>> JSONParse
+            return course!
         }
-        println("Sample result: \(results.first!)")
     }
+
+    func createCourse(remoteID:NSNumber)(name:String) -> Course
+    {
+        let course = self.stack.create(Course.self)!
+        course.remoteID = remoteID
+        course.name = name
+        return course
+    }
+}
+
+typealias JSON = AnyObject
+typealias JSONArray = Array<JSON>
+typealias JSONDictionary = Dictionary<String, JSON>
+
+func JSONParse<T>(json:JSON) -> T? {
+    return json as? T
 }

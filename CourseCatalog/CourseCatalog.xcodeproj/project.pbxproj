@@ -25,6 +25,7 @@
 		C7B366EB1A35006F008E6C10 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366EA1A35006F008E6C10 /* Course.swift */; };
 		C7B366ED1A350077008E6C10 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366EC1A350077008E6C10 /* CoreDataStack.swift */; };
 		C7B366F51A353116008E6C10 /* CourseSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366F41A353116008E6C10 /* CourseSpecs.swift */; };
+		C7B366F61A35359A008E6C10 /* CatalogDataSourceSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,10 +142,10 @@
 		C782E8C01A34E1E6006A9DDE /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C7B366F41A353116008E6C10 /* CourseSpecs.swift */,
 				C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */,
 				C782E8C11A34E1E6006A9DDE /* Fixtures */,
 				C782E8C31A34E1E6006A9DDE /* Support */,
-				C7B366F41A353116008E6C10 /* CourseSpecs.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -323,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7B366F51A353116008E6C10 /* CourseSpecs.swift in Sources */,
+				C7B366F61A35359A008E6C10 /* CatalogDataSourceSpecs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
