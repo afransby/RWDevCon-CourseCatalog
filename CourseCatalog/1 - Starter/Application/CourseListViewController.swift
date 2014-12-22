@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Argo
 
 @objc class CourseListViewController: UIViewController, UITableViewDelegate, CatalogDataSourceDelegate
 {

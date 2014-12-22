@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C767777F1A34FEE8006C8BC1 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C782E8C71A34E206006A9DDE /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C76777801A34FEE8006C8BC1 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C782E8C81A34E206006A9DDE /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C76A6A9E1A357B3D001440C5 /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
 		C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8981A341AA6006A9DDE /* AppDelegate.swift */; };
 		C782E8A41A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8991A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift */; };
@@ -17,16 +15,17 @@
 		C782E8A71A341AA6006A9DDE /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E89C1A341AA6006A9DDE /* CourseListViewController.swift */; };
 		C782E8A81A341AA6006A9DDE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C782E89E1A341AA6006A9DDE /* LaunchScreen.xib */; };
 		C782E8A91A341AA6006A9DDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C782E8A01A341AA6006A9DDE /* Main.storyboard */; };
-		C782E8AE1A34D93C006A9DDE /* FunctionalOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8AD1A34D93C006A9DDE /* FunctionalOperators.swift */; };
 		C782E8C51A34E1E6006A9DDE /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
-		C782E8C91A34E206006A9DDE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C782E8C71A34E206006A9DDE /* Nimble.framework */; };
-		C782E8CA1A34E206006A9DDE /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C782E8C81A34E206006A9DDE /* Quick.framework */; };
 		C7B366E61A350062008E6C10 /* CourseDataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366E51A350061008E6C10 /* CourseDataImporter.swift */; };
 		C7B366E91A350068008E6C10 /* Courses.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7B366E71A350068008E6C10 /* Courses.xcdatamodeld */; };
 		C7B366EB1A35006F008E6C10 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366EA1A35006F008E6C10 /* Course.swift */; };
 		C7B366ED1A350077008E6C10 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366EC1A350077008E6C10 /* CoreDataStack.swift */; };
 		C7B366F51A353116008E6C10 /* CourseSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366F41A353116008E6C10 /* CourseSpecs.swift */; };
 		C7B366F61A35359A008E6C10 /* CatalogDataSourceSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */; };
+		C7E6C2B11A47864100C54FE2 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6C2AF1A47864100C54FE2 /* Nimble.framework */; };
+		C7E6C2B21A47864100C54FE2 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6C2B01A47864100C54FE2 /* Quick.framework */; };
+		C7E6C2B51A47899500C54FE2 /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6C2B31A47898C00C54FE2 /* Argo.framework */; };
+		C7E6C2B61A47899500C54FE2 /* Argo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6C2B31A47898C00C54FE2 /* Argo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,9 +45,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C767777F1A34FEE8006C8BC1 /* Nimble.framework in CopyFiles */,
-				C76777801A34FEE8006C8BC1 /* Quick.framework in CopyFiles */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7E6C2B71A47899500C54FE2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C7E6C2B61A47899500C54FE2 /* Argo.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -64,18 +72,18 @@
 		C782E8A11A341AA6006A9DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C782E8A21A341AA6006A9DDE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C782E8AB1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseraCatalogCommandHandler.swift; sourceTree = "<group>"; };
-		C782E8AD1A34D93C006A9DDE /* FunctionalOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalOperators.swift; sourceTree = "<group>"; };
 		C782E8B51A34E1C0006A9DDE /* CourseCatalogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseCatalogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C782E8C21A34E1E6006A9DDE /* Courses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Courses.json; sourceTree = "<group>"; };
 		C782E8C41A34E1E6006A9DDE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C782E8C71A34E206006A9DDE /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../../../Carthage.build/iOS/Nimble.framework; sourceTree = "<group>"; };
-		C782E8C81A34E206006A9DDE /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../../../Carthage.build/iOS/Quick.framework; sourceTree = "<group>"; };
 		C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogDataSourceSpecs.swift; sourceTree = "<group>"; };
 		C7B366E51A350061008E6C10 /* CourseDataImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDataImporter.swift; sourceTree = "<group>"; };
 		C7B366E81A350068008E6C10 /* Courses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Courses.xcdatamodel; sourceTree = "<group>"; };
 		C7B366EA1A35006F008E6C10 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = SOURCE_ROOT; };
 		C7B366EC1A350077008E6C10 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C7B366F41A353116008E6C10 /* CourseSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseSpecs.swift; sourceTree = "<group>"; };
+		C7E6C2AF1A47864100C54FE2 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage.build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
+		C7E6C2B01A47864100C54FE2 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage.build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
+		C7E6C2B31A47898C00C54FE2 /* Argo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Argo.framework; path = Carthage.build/iOS/Argo.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7E6C2B51A47899500C54FE2 /* Argo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,8 +99,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C782E8C91A34E206006A9DDE /* Nimble.framework in Frameworks */,
-				C782E8CA1A34E206006A9DDE /* Quick.framework in Frameworks */,
+				C7E6C2B21A47864100C54FE2 /* Quick.framework in Frameworks */,
+				C7E6C2B11A47864100C54FE2 /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +144,7 @@
 		C782E89D1A341AA6006A9DDE /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				C7E6C2B31A47898C00C54FE2 /* Argo.framework */,
 				C782E8A21A341AA6006A9DDE /* Info.plist */,
 			);
 			path = Support;
@@ -162,8 +172,8 @@
 		C782E8C31A34E1E6006A9DDE /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				C782E8C71A34E206006A9DDE /* Nimble.framework */,
-				C782E8C81A34E206006A9DDE /* Quick.framework */,
+				C7E6C2AF1A47864100C54FE2 /* Nimble.framework */,
+				C7E6C2B01A47864100C54FE2 /* Quick.framework */,
 				C782E8C41A34E1E6006A9DDE /* Info.plist */,
 			);
 			path = Support;
@@ -191,7 +201,6 @@
 		C7B366F01A350097008E6C10 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C782E8AD1A34D93C006A9DDE /* FunctionalOperators.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -216,6 +225,7 @@
 				C782E8681A3418DE006A9DDE /* Sources */,
 				C782E8691A3418DE006A9DDE /* Frameworks */,
 				C782E86A1A3418DE006A9DDE /* Resources */,
+				C7E6C2B71A47899500C54FE2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -310,7 +320,6 @@
 			files = (
 				C7B366EB1A35006F008E6C10 /* Course.swift in Sources */,
 				C7B366E91A350068008E6C10 /* Courses.xcdatamodeld in Sources */,
-				C782E8AE1A34D93C006A9DDE /* FunctionalOperators.swift in Sources */,
 				C782E8A71A341AA6006A9DDE /* CourseListViewController.swift in Sources */,
 				C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */,
 				C7B366ED1A350077008E6C10 /* CoreDataStack.swift in Sources */,
@@ -445,6 +454,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage.build/iOS",
+				);
 				INFOPLIST_FILE = Application/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -455,6 +468,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage.build/iOS",
+				);
 				INFOPLIST_FILE = Application/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -469,7 +486,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					/Users/saul/Projects/rwdevcon/CourseCatalog/Carthage.build/iOS,
+					"$(PROJECT_DIR)/Carthage.build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -491,7 +508,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					/Users/saul/Projects/rwdevcon/CourseCatalog/Carthage.build/iOS,
+					"$(PROJECT_DIR)/Carthage.build/iOS",
 				);
 				INFOPLIST_FILE = Tests/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

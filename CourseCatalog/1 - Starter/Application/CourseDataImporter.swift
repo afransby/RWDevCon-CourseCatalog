@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Argo
 
 public class CourseDataImporter: NSObject {
 
@@ -36,14 +37,14 @@ public class CourseDataImporter: NSObject {
         let existTemplate = NSPredicate(format: "remoteID = $REMOTE_ID")!
         results = elements!.map { elementInfo in
 
-            let remoteID : NSNumber? = elementInfo["id"] >>> JSONParse
+            let remoteID : NSNumber? = elementInfo["id"] >>- _JSONParse
             let existsFilter = existTemplate.predicateWithSubstitutionVariables(["REMOTE_ID": remoteID!])
             let course = self.createCourse <^>
                             stack <*>
                             existsFilter <*>
                             remoteID <*>
-                            elementInfo["name"] >>> JSONParse <*>
-                            elementInfo["shortName"] >>> JSONParse
+                            elementInfo["name"] >>- _JSONParse <*>
+                            elementInfo["shortName"] >>- _JSONParse
             return course!
         }
     }
@@ -63,12 +64,4 @@ public class CourseDataImporter: NSObject {
         course.shortName = shortName
         return course
     }
-}
-
-typealias JSON = AnyObject
-typealias JSONArray = Array<JSON>
-typealias JSONDictionary = Dictionary<String, JSON>
-
-func JSONParse<T>(json:JSON) -> T? {
-    return json as? T
 }
