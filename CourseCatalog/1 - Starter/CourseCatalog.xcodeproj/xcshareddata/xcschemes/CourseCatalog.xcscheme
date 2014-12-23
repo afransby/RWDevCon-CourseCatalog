@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0620"
-   version = "1.8">
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -34,6 +34,20 @@
                ReferencedContainer = "container:CourseCatalog.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C72D12241A47BCC900AE8061"
+               BuildableName = "CourseCatalogTests.xctest"
+               BlueprintName = "CourseCatalogTests"
+               ReferencedContainer = "container:CourseCatalog.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -47,6 +61,16 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C782E8B41A34E1C0006A9DDE"
+               BuildableName = "CourseCatalogTests.xctest"
+               BlueprintName = "CourseCatalogTests"
+               ReferencedContainer = "container:CourseCatalog.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C72D12241A47BCC900AE8061"
                BuildableName = "CourseCatalogTests.xctest"
                BlueprintName = "CourseCatalogTests"
                ReferencedContainer = "container:CourseCatalog.xcodeproj">

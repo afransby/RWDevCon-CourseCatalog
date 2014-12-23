@@ -11,12 +11,16 @@ import CoreData
 
 public class Course: NSManagedObject {
 
-    @NSManaged public var remoteID: NSNumber?
-    @NSManaged public var name: String?
-    @NSManaged public var shortName: String?
-    @NSManaged public var smallIcon: AnyObject?
-    @NSManaged public var largeIcon: AnyObject?
-    @NSManaged public var instructorName: String?
-    @NSManaged public var summary: String?
-    @NSManaged public var syllabus: String?
+    @NSManaged public var remoteID: NSNumber!
+    @NSManaged public var name: String!
+    @NSManaged public var shortName: String!
+    @NSManaged public var smallIcon: AnyObject!
+    @NSManaged public var largeIcon: AnyObject!
+    @NSManaged public var instructorName: String!
+    @NSManaged public var summary: String!
+    @NSManaged public var syllabus: String!
+    
+    public func entityName() -> String {
+        return "Course"
+    }
 }

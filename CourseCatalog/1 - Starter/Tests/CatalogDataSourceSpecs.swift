@@ -11,7 +11,7 @@ class CatalogDataSourceSpecs: QuickSpec {
             
             beforeSuite {
                 let testContent = Fixtures().jsonContent(Named: "Courses.json")
-                testImporter.importData(testContent)
+                testImporter.importDataFrom(testContent)
             }
 
             it("should have correct number of elements") {

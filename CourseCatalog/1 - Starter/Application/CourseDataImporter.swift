@@ -25,43 +25,23 @@ public class CourseDataImporter: NSObject {
             let inputStream = NSInputStream(URL: resourceURL)
             inputStream?.open()
             if let json = NSJSONSerialization.JSONObjectWithStream(inputStream!, options: nil, error: nil) as? NSDictionary {
-                importData(json)
+                importDataFrom(json)
             }
         }
     }
 
-    public func importData(data:NSDictionary)
+    public func importDataFrom(data:NSDictionary)
     {
         let elements = data["elements"] as? [AnyObject]
         let stack = self.stack
         let existTemplate = NSPredicate(format: "remoteID = $REMOTE_ID")!
-        results = elements!.map { elementInfo in
-
-            let remoteID : NSNumber? = elementInfo["id"] >>- _JSONParse
-            let existsFilter = existTemplate.predicateWithSubstitutionVariables(["REMOTE_ID": remoteID!])
-            let course = self.createCourse <^>
-                            stack <*>
-                            existsFilter <*>
-                            remoteID <*>
-                            elementInfo["name"] >>- _JSONParse <*>
-                            elementInfo["shortName"] >>- _JSONParse
-            return course!
+        let adapter = CourseAdapter(context:stack.backgroundContext)
+        let courses : [Course?] = elements!.map { elementInfo in
+            let course = elementInfo >>-
+                        _Course.decode >>-
+                        adapter.courseFrom
+            return course
         }
-    }
-
-    func createCourse(stack:CoreDataStack)(uniquenessFilter:NSPredicate)(remoteID:NSNumber)(name:String)(shortName:String) -> Course
-    {
-        var course : Course
-        if !stack.exists(Course.self, predicate: uniquenessFilter) {
-            course = stack.create(Course.self)!
-            course.remoteID = remoteID
-        } else {
-            let result = stack.find(Course.self, predicate: uniquenessFilter)!
-            course = result.first!
-        }
-
-        course.name = name
-        course.shortName = shortName
-        return course
+        results = courses.filter { $0 != nil }.map { $0! }
     }
 }

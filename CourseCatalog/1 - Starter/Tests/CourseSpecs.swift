@@ -7,7 +7,7 @@ class CourseSpecs: QuickSpec {
 
         describe("Course Object") {
             let testStack : CoreDataStack = CoreDataStack()
-            var testCourse : Course?
+            var testCourse : Course!
 
             beforeSuite {
                 testCourse = testStack.create(Course.self)
@@ -18,7 +18,7 @@ class CourseSpecs: QuickSpec {
             }
 
             it("should have a name") {
-                expect(testCourse?.name).to(beNil())
+                expect(testCourse.name).to(beNil())
             }
         }
     }
