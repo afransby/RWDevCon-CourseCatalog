@@ -20,7 +20,11 @@ public class Course: NSManagedObject {
     @NSManaged public var summary: String!
     @NSManaged public var syllabus: String!
     
-    public func entityName() -> String {
+//    init(){
+//        assertionFailure("Don't create Course objects using raw init function")
+//    }
+    
+    override class func entityName() -> String {
         return "Course"
     }
 }

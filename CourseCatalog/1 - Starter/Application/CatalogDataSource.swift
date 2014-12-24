@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import Swell
 
 @objc protocol CatalogDataSourceDelegate {
     func dataSourceDidAddNewObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
@@ -15,6 +16,7 @@ import CoreData
 
 @objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
 {
+    lazy var logger = Logger.getLogger("CatalogDataSource")
     lazy var courses : NSFetchedResultsController = {
         let request = NSFetchRequest(entityName: "Course")
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
@@ -23,19 +25,18 @@ import CoreData
         return controller
     }()
 
-//    var objects = [AnyObject]()
     let stack = CoreDataStack(storeName: "Catalog.sqlite")
     weak var delegate : CatalogDataSourceDelegate?
 
     override init(){
-        println("Loading Catalog Data Source")
         super.init()
+        logger.debug("Loading Catalog Data Source")
         loadCourses()
     }
 
     func loadCourses()
     {
-        let importer = CourseDataImporter(stack: stack)
+        let importer = CourseImporter(stack: stack)
         importer.importJSONDataInResourceNamed("Courses.json")
         stack.save()
 
@@ -43,7 +44,7 @@ import CoreData
         let success = courses.performFetch(&error)
         if !success
         {
-            NSLog("Error fetching courses: \(error)")
+            logger.error("Error fetching courses: \(error)")
         }
     }
 
@@ -58,9 +59,9 @@ import CoreData
         case .Delete:
             delegate?.dataSourceDidRemoveObject(self, atIndexPath: indexPath!)
         case .Update:
-            println("Updated row \(indexPath!)")
+            logger.debug("Updated row \(indexPath!)")
         case .Move:
-            println("Moved row from \(indexPath!) to \(newIndexPath!)")
+            logger.debug("Moved row from \(indexPath!) to \(newIndexPath!)")
         }
     }
 }

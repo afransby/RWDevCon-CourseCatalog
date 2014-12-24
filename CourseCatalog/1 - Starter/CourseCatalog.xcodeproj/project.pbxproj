@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C72D12301A47BD0700AE8061 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6C2AF1A47864100C54FE2 /* Nimble.framework */; };
-		C72D12311A47BD0700AE8061 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6C2B01A47864100C54FE2 /* Quick.framework */; };
 		C72D12321A47BD1100AE8061 /* CourseSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366F41A353116008E6C10 /* CourseSpecs.swift */; };
 		C72D12331A47BD1100AE8061 /* CatalogDataSourceSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */; };
 		C73517D41A48D40300193CAE /* Course+JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73517D31A48D40300193CAE /* Course+JSONDecoding.swift */; };
-		C73517D61A490ECE00193CAE /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7E6C2AF1A47864100C54FE2 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C73517D71A490ECE00193CAE /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7E6C2B01A47864100C54FE2 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C73517D81A490F6900193CAE /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
+		C73517DB1A49D93F00193CAE /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73517D91A49D93F00193CAE /* Argo.framework */; };
+		C73517DC1A49D93F00193CAE /* Swell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73517DA1A49D93F00193CAE /* Swell.framework */; };
+		C73517DF1A49D94D00193CAE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73517DD1A49D94D00193CAE /* Nimble.framework */; };
+		C73517E01A49D94D00193CAE /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73517DE1A49D94D00193CAE /* Quick.framework */; };
+		C73517E21A49FF8F00193CAE /* NSManagedObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73517E11A49FF8F00193CAE /* NSManagedObject+Additions.swift */; };
 		C76A6A9E1A357B3D001440C5 /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
 		C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8981A341AA6006A9DDE /* AppDelegate.swift */; };
 		C782E8A41A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8991A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift */; };
@@ -23,12 +24,10 @@
 		C782E8A71A341AA6006A9DDE /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E89C1A341AA6006A9DDE /* CourseListViewController.swift */; };
 		C782E8A81A341AA6006A9DDE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C782E89E1A341AA6006A9DDE /* LaunchScreen.xib */; };
 		C782E8A91A341AA6006A9DDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C782E8A01A341AA6006A9DDE /* Main.storyboard */; };
-		C7B366E61A350062008E6C10 /* CourseDataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366E51A350061008E6C10 /* CourseDataImporter.swift */; };
+		C7B366E61A350062008E6C10 /* CourseImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366E51A350061008E6C10 /* CourseImporter.swift */; };
 		C7B366E91A350068008E6C10 /* Courses.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7B366E71A350068008E6C10 /* Courses.xcdatamodeld */; };
 		C7B366EB1A35006F008E6C10 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366EA1A35006F008E6C10 /* Course.swift */; };
 		C7B366ED1A350077008E6C10 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366EC1A350077008E6C10 /* CoreDataStack.swift */; };
-		C7E6C2B51A47899500C54FE2 /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6C2B31A47898C00C54FE2 /* Argo.framework */; };
-		C7E6C2B61A47899500C54FE2 /* Argo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6C2B31A47898C00C54FE2 /* Argo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +47,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C73517D61A490ECE00193CAE /* Nimble.framework in CopyFiles */,
-				C73517D71A490ECE00193CAE /* Quick.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +56,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C7E6C2B61A47899500C54FE2 /* Argo.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,8 +63,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C72D12251A47BCC900AE8061 /* CourseCatalog Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CourseCatalog Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72D12251A47BCC900AE8061 /* CourseCatalogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseCatalogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C73517D31A48D40300193CAE /* Course+JSONDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Course+JSONDecoding.swift"; sourceTree = "<group>"; };
+		C73517D91A49D93F00193CAE /* Argo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Argo.framework; path = Carthage/Build/iOS/Argo.framework; sourceTree = SOURCE_ROOT; };
+		C73517DA1A49D93F00193CAE /* Swell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swell.framework; path = Carthage/Build/iOS/Swell.framework; sourceTree = SOURCE_ROOT; };
+		C73517DD1A49D94D00193CAE /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
+		C73517DE1A49D94D00193CAE /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
+		C73517E11A49FF8F00193CAE /* NSManagedObject+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Additions.swift"; sourceTree = "<group>"; };
 		C782E86C1A3418DE006A9DDE /* CourseCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C782E8981A341AA6006A9DDE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C782E8991A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CatalogDataSource+UITableViewDataSource.swift"; sourceTree = "<group>"; };
@@ -82,14 +83,11 @@
 		C782E8C21A34E1E6006A9DDE /* Courses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Courses.json; sourceTree = "<group>"; };
 		C782E8C41A34E1E6006A9DDE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogDataSourceSpecs.swift; sourceTree = "<group>"; };
-		C7B366E51A350061008E6C10 /* CourseDataImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDataImporter.swift; sourceTree = "<group>"; };
+		C7B366E51A350061008E6C10 /* CourseImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseImporter.swift; sourceTree = "<group>"; };
 		C7B366E81A350068008E6C10 /* Courses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Courses.xcdatamodel; sourceTree = "<group>"; };
 		C7B366EA1A35006F008E6C10 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = SOURCE_ROOT; };
 		C7B366EC1A350077008E6C10 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C7B366F41A353116008E6C10 /* CourseSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseSpecs.swift; sourceTree = "<group>"; };
-		C7E6C2AF1A47864100C54FE2 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage.build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
-		C7E6C2B01A47864100C54FE2 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage.build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
-		C7E6C2B31A47898C00C54FE2 /* Argo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Argo.framework; path = Carthage.build/iOS/Argo.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +95,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C72D12301A47BD0700AE8061 /* Nimble.framework in Frameworks */,
-				C72D12311A47BD0700AE8061 /* Quick.framework in Frameworks */,
+				C73517E01A49D94D00193CAE /* Quick.framework in Frameworks */,
+				C73517DF1A49D94D00193CAE /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7E6C2B51A47899500C54FE2 /* Argo.framework in Frameworks */,
+				C73517DB1A49D93F00193CAE /* Argo.framework in Frameworks */,
+				C73517DC1A49D93F00193CAE /* Swell.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				C782E86C1A3418DE006A9DDE /* CourseCatalog.app */,
-				C72D12251A47BCC900AE8061 /* CourseCatalog Tests.xctest */,
+				C72D12251A47BCC900AE8061 /* CourseCatalogTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,7 +149,8 @@
 		C782E89D1A341AA6006A9DDE /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				C7E6C2B31A47898C00C54FE2 /* Argo.framework */,
+				C73517D91A49D93F00193CAE /* Argo.framework */,
+				C73517DA1A49D93F00193CAE /* Swell.framework */,
 				C782E8A21A341AA6006A9DDE /* Info.plist */,
 			);
 			path = Support;
@@ -178,8 +178,8 @@
 		C782E8C31A34E1E6006A9DDE /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				C7E6C2AF1A47864100C54FE2 /* Nimble.framework */,
-				C7E6C2B01A47864100C54FE2 /* Quick.framework */,
+				C73517DD1A49D94D00193CAE /* Nimble.framework */,
+				C73517DE1A49D94D00193CAE /* Quick.framework */,
 				C782E8C41A34E1E6006A9DDE /* Info.plist */,
 			);
 			path = Support;
@@ -201,6 +201,7 @@
 				C7B366E71A350068008E6C10 /* Courses.xcdatamodeld */,
 				C7B366EA1A35006F008E6C10 /* Course.swift */,
 				C73517D31A48D40300193CAE /* Course+JSONDecoding.swift */,
+				C7B366E51A350061008E6C10 /* CourseImporter.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -208,6 +209,7 @@
 		C7B366F01A350097008E6C10 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C73517E11A49FF8F00193CAE /* NSManagedObject+Additions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -216,7 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				C782E89A1A341AA6006A9DDE /* CatalogDataSource.swift */,
-				C7B366E51A350061008E6C10 /* CourseDataImporter.swift */,
 				C782E8991A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift */,
 			);
 			name = Controllers;
@@ -241,7 +242,7 @@
 			);
 			name = CourseCatalogTests;
 			productName = "CourseCatalog Tests";
-			productReference = C72D12251A47BCC900AE8061 /* CourseCatalog Tests.xctest */;
+			productReference = C72D12251A47BCC900AE8061 /* CourseCatalogTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C782E86B1A3418DE006A9DDE /* CourseCatalog */ = {
@@ -340,7 +341,8 @@
 				C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */,
 				C7B366ED1A350077008E6C10 /* CoreDataStack.swift in Sources */,
 				C782E8A41A341AA6006A9DDE /* CatalogDataSource+UITableViewDataSource.swift in Sources */,
-				C7B366E61A350062008E6C10 /* CourseDataImporter.swift in Sources */,
+				C7B366E61A350062008E6C10 /* CourseImporter.swift in Sources */,
+				C73517E21A49FF8F00193CAE /* NSManagedObject+Additions.swift in Sources */,
 				C782E8A51A341AA6006A9DDE /* CatalogDataSource.swift in Sources */,
 				C782E8A61A341AA6006A9DDE /* CourseViewController.swift in Sources */,
 				C73517D41A48D40300193CAE /* Course+JSONDecoding.swift in Sources */,
@@ -386,7 +388,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage.build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Support/Info.plist;
@@ -404,7 +406,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage.build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Tests/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -498,7 +500,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage.build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Application/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -512,7 +514,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage.build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Application/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

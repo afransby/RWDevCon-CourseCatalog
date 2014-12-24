@@ -7,9 +7,21 @@
 //
 
 import CoreData
+import Swell
+
+
+private func cast<T, U>(object:T?) -> U?
+{
+    if let object = object {
+        return object as? U
+    }
+    return .None
+}
 
 public class CoreDataStack
 {
+    private lazy var logger : Logger = Swell.getLogger("CoreDataStack")
+    
     let storeName : String?
     private lazy var storeURL : NSURL? = {
         let searchPaths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)
@@ -41,16 +53,17 @@ public class CoreDataStack
         self.storeName = storeName
     }
 
-    init(url:NSURL) {
+    init(url:NSURL)
+    {
         self.storeName = url.lastPathComponent!
         self.storeURL = url
     }
 
-    var mainContext : NSManagedObjectContext {
+    internal var mainContext : NSManagedObjectContext {
         return context
     }
 
-    var backgroundContext : NSManagedObjectContext {
+    private var backgroundContext : NSManagedObjectContext {
         return savingContext
     }
 
@@ -82,37 +95,62 @@ public class CoreDataStack
         case .None:
             store = coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: &error)
         }
-        println("Loaded Coordinator: \(coordinator)")
-        if let store = store {
-            println("-- Added Store: \(store)")
+        logger.debug("Loaded Coordinator: \(coordinator)")
+        if let store = store
+        {
+            logger.debug("-- Added Store: \(store)")
         }
         if let error = error {
-            println("ERROR: \(error)")
+            logger.debug("ERROR: \(error)")
         }
     }
 
     private lazy var model : NSManagedObjectModel = {
         let bundle = NSBundle(forClass: CoreDataStack.self)
         let model = NSManagedObjectModel.mergedModelFromBundles([bundle])!
-//        println("Loaded Model: \(model.entityVersionHashesByName)")
-//        println("-- from Bundle: \(bundle)")
-//        println("-- Model: \(model.entities)")
+        
+        let logger = self.logger
+        logger.debug("Loaded Model: \(model.entityVersionHashesByName)")
+        logger.debug("-- from Bundle: \(bundle)")
+        logger.debug("-- Model: \(model.entities)")
         return model
     }()
 }
 
-func entityNameFromType<T : NSManagedObject>(type:T.Type) -> String? {
+private func entityNameFromType<T : NSManagedObject>(type:T.Type) -> String? {
     return NSStringFromClass(type).componentsSeparatedByString(".").last
 }
 
 extension CoreDataStack
 {
-    func find<T : NSManagedObject>(type:T.Type, predicate:NSPredicate) -> [T]?
+    func find<T : NSManagedObject>(type:T.Type, orderedBy: [NSSortDescriptor]? = nil, predicate:NSPredicate? = nil) -> [T]?
     {
         let request = NSFetchRequest(entityName: entityNameFromType(type)!)
+        request.predicate = predicate
+        request.sortDescriptors = orderedBy
+        
         var error : NSError?
         let result = mainContext.executeFetchRequest(request, error: &error) as? [T]
+        if result == nil
+        {
+            logger.error("[find] \(error)")
+        }
         return result
+    }
+    
+    func findFirst<T : NSManagedObject>(type:T.Type, predicate:NSPredicate) -> T?
+    {
+        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        
+        var error : NSError?
+        let result = mainContext.executeFetchRequest(request, error: &error) as? [T]
+        if result == nil
+        {
+            logger.error("[find] \(error)")
+        }
+        return result?.first
     }
 
     func exists<T : NSManagedObject>(type:T.Type, predicate:NSPredicate) -> Bool
@@ -122,6 +160,10 @@ extension CoreDataStack
 
         var error : NSError?
         let count = mainContext.countForFetchRequest(request, error: &error)
+        if count == NSNotFound
+        {
+            logger.error("[exists] \(error)")
+        }
         return count > 0
     }
 
@@ -131,19 +173,22 @@ extension CoreDataStack
         return create(type, inContext: mainContext)
     }
 
+    func createInBackground<T : NSManagedObject>(type:T.Type) -> T?
+    {
+        return create(type, inContext: backgroundContext)
+    }
+    
     func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T?
     {
         if let entityName = entityNameFromType(type)
         {
-            if let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context) {
-                let entity = T(entity: entityDescription, insertIntoManagedObjectContext: context) as T
-                return .Some(entity)
-            }
+            let entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as NSManagedObject
+            return cast(entity)
         }
         return .None
     }
-
-    public func save() {
+    public func save()
+    {
         saveUsing(Context: context)
     }
     
@@ -151,8 +196,9 @@ extension CoreDataStack
     {
         var error : NSError?
         let saved = context.save(&error)
-        if !saved {
-            NSLog("Error saving: \(error)")
+        if !saved
+        {
+            logger.error("Error saving: \(error)")
         }
     }
 }

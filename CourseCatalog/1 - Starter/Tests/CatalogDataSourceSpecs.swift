@@ -7,7 +7,7 @@ class CatalogDataSourceSpecs: QuickSpec {
 
         describe("importing") {
 
-            let testImporter = CourseDataImporter()
+            let testImporter = CourseImporter()
             
             beforeSuite {
                 let testContent = Fixtures().jsonContent(Named: "Courses.json")

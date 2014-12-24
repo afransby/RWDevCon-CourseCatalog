@@ -2,7 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Carthage.checkout/Argo/Argo.xcodeproj">
+      location = "group:Cartfile">
+   </FileRef>
+   <FileRef
+      location = "group:Cartfile.resolved">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/Argo/Argo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/Swell/Swell.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:CourseCatalog.xcodeproj">
