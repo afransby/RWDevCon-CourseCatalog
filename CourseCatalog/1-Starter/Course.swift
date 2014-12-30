@@ -9,7 +9,11 @@
 import Foundation
 import CoreData
 
-public class Course: NSManagedObject {
+protocol TableViewCellDisplayable {
+    var displayDescription : String { get }
+}
+
+public class Course: NSManagedObject, TableViewCellDisplayable {
 
     @NSManaged public var remoteID: NSNumber!
     @NSManaged public var name: String!
@@ -20,11 +24,7 @@ public class Course: NSManagedObject {
     @NSManaged public var summary: String!
     @NSManaged public var syllabus: String!
     
-//    init(){
-//        assertionFailure("Don't create Course objects using raw init function")
-//    }
-    
-    override public var description : String {
+    public var displayDescription : String {
         return name
     }
     

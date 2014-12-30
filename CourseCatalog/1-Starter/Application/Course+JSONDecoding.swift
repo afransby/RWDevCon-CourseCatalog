@@ -16,6 +16,7 @@ class CourseAdapter
     init(stack:CoreDataStack)
     {
         self.stack = stack
+        println("Creating Couse object adapter")
     }
     
     func adapt(courses:[_Course]) -> [Course]
@@ -34,8 +35,9 @@ class CourseAdapter
         if let existingCourses = existingCourses
         {
             let existingCourseIDs = existingCourses.map { $0.remoteID.integerValue }
-            let newRawCourses = courses.filter { find(existingCourseIDs, $0.remoteID) != nil }
-
+            let newRawCourses = courses.filter { find(existingCourseIDs, $0.remoteID) == nil }
+            
+            println("Adapting \(newRawCourses.count) new courses")
             return newRawCourses.map { self.adapt(from: $0) }
         }
         return []
@@ -46,8 +48,9 @@ class CourseAdapter
         if let existingCourses = existingCourses
         {
             let existingCourseIDs = existingCourses.map { $0.remoteID.integerValue }
-            let existingRawCourses = rawCourses.filter { find(existingCourseIDs, $0.remoteID) == nil }
+            let existingRawCourses = rawCourses.filter { find(existingCourseIDs, $0.remoteID) != nil }
 
+            println("Adapting \(existingCourses.count) existing courses")
             return existingCourses.map { course in
                 let filtered = filter(rawCourses) { $0.remoteID == course.remoteID }
                 return self.adapt(course: course, from:filtered.first!)
@@ -72,13 +75,6 @@ struct _Course
     let name:String
     let shortName:String
     let remoteID:Int
-//    
-//    static let uniqueFilterTemplate = NSPredicate(format: "remoteID = $REMOTE_ID")!
-//    
-//    func uniqueFilter() -> NSPredicate
-//    {
-//        return _Course.uniqueFilterTemplate.predicateWithSubstitutionVariables(["REMOTE_ID":remoteID])
-//    }
 }
 
 extension _Course : JSONDecodable
@@ -91,6 +87,9 @@ extension _Course : JSONDecodable
     static func decodeObjects(json: JSON) -> [_Course?]?
     {
         let elements = json["elements"] as? [AnyObject]
+        let elementCount = (elements != nil) ? elements!.count : 0
+        println("Decoding \(elementCount) elements")
+        
         return elements?.map { elementInfo in
             return elementInfo >>- _Course.decode
         }

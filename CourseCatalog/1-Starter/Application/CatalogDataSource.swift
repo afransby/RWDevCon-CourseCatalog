@@ -9,7 +9,8 @@
 import CoreData
 import Swell
 
-@objc protocol CatalogDataSourceDelegate {
+@objc protocol CatalogDataSourceDelegate
+{
     func dataSourceDidAddNewObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
     func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
 }
@@ -17,18 +18,32 @@ import Swell
 @objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
 {
     lazy var logger = Logger.getLogger("CatalogDataSource")
-    lazy var courses : NSFetchedResultsController = {
+    lazy var courses : NSFetchedResultsController =
+    {
         let request = NSFetchRequest(entityName: Course.entityName())
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         let controller = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.stack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         controller.delegate = self
+
+        var error : NSError?
+        let success = controller.performFetch(&error)
+        if !success
+        {
+            println("Error fetching courses: \(error)")
+        }
+        else
+        {
+            println("Fetched \(controller.fetchedObjects?.count)")
+        }
+
         return controller
     }()
 
-    let stack = CoreDataStack(storeName: "Catalog.sqlite")
-    weak var delegate : CatalogDataSourceDelegate?
+    let stack = CoreDataStack()
+    @IBOutlet weak var delegate : CatalogDataSourceDelegate?
 
-    override init(){
+    override init()
+    {
         super.init()
         logger.debug("Loading Catalog Data Source")
         loadCourses()
@@ -36,23 +51,21 @@ import Swell
 
     func loadCourses()
     {
-        let importer = CourseImporter(stack: stack)
-        importer.importJSONDataInResourceNamed("Courses.json")
-        stack.save()
-
-        var error : NSError?
-        let success = courses.performFetch(&error)
-        if !success
+        if !stack.exists(Course.self)
         {
-            logger.error("Error fetching courses: \(error)")
+            let importer = CourseImporter(stack: stack)
+            importer.importJSONDataInResourceNamed("Courses.json")
+            stack.save()
         }
     }
 
-    func objectAtIndexPath(indexPath:NSIndexPath) -> Course {
+    func objectAtIndexPath(indexPath:NSIndexPath) -> Course
+    {
         return courses.objectAtIndexPath(indexPath) as Course
     }
 
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
+    {
         switch(type) {
         case .Insert:
             delegate?.dataSourceDidAddNewObject(self, atIndexPath: newIndexPath!)

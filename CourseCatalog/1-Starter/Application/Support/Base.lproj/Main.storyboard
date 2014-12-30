@@ -98,7 +98,7 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="fkd-x3-f4T" id="95y-MW-t1j"/>
+                                    <outlet property="dataSource" destination="BAo-Nh-Yxu" id="hpb-Ep-u7H"/>
                                     <outlet property="delegate" destination="grP-gE-McP" id="uR7-wy-3p3"/>
                                 </connections>
                             </tableView>
@@ -107,12 +107,22 @@
                     </view>
                     <navigationItem key="navigationItem" id="9UU-Ic-f3Z"/>
                     <connections>
-                        <outlet property="dataSource" destination="fkd-x3-f4T" id="ZaB-Ra-lIc"/>
+                        <outlet property="dataSource" destination="BAo-Nh-Yxu" id="W8V-py-ASX"/>
                         <outlet property="tableView" destination="yFt-qX-zxz" id="gnY-Yy-3zG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufL-kh-hBX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="fkd-x3-f4T" customClass="CatalogDataSource" customModule="CourseCatalog" customModuleProvider="target"/>
+                <customObject id="8XW-tr-XtT" customClass="CatalogDataSource" customModule="CourseCatalog" customModuleProvider="target">
+                    <connections>
+                        <outlet property="delegate" destination="BAo-Nh-Yxu" id="226-BN-BLw"/>
+                    </connections>
+                </customObject>
+                <customObject id="BAo-Nh-Yxu" customClass="CatalogTableViewDataSource" customModule="CourseCatalog">
+                    <connections>
+                        <outlet property="catalogDataSource" destination="8XW-tr-XtT" id="ZOy-Jp-QuE"/>
+                        <outlet property="tableView" destination="yFt-qX-zxz" id="zsU-1s-cmc"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="685" y="-622"/>
         </scene>

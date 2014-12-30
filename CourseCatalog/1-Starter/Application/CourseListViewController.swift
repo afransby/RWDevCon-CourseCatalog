@@ -9,15 +9,10 @@
 import UIKit
 import Argo
 
-@objc class CourseListViewController: UIViewController, UITableViewDelegate, CatalogDataSourceDelegate
+@objc class CourseListViewController: UIViewController, UITableViewDelegate
 {
     @IBOutlet var tableView : UITableView!
-    @IBOutlet var dataSource : CatalogDataSource!
-    {
-        didSet {
-            dataSource.delegate = self
-        }
-    }
+    @IBOutlet var dataSource : CatalogTableViewDataSource!
 
     var detailViewController: CourseViewController? = nil
 
@@ -54,19 +49,9 @@ import Argo
         return addButton
     }
 
-    func dataSourceDidAddNewObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
-    {
-        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    }
-
-    func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
-    {
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    }
-
     func configureCourseViewController(controller:CourseViewController, indexPath:NSIndexPath)
     {
-        let object = dataSource.objectAtIndexPath(indexPath)
+        let object = dataSource.catalogDataSource.objectAtIndexPath(indexPath)
         controller.detailItem = object
         controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
         controller.navigationItem.leftItemsSupplementBackButton = true
@@ -88,17 +73,4 @@ import Argo
 
         configureCourseViewController(controller, indexPath: indexPath)
     }
-
-//    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        // Return false if you do not want the specified item to be editable.
-//        return true
-//    }
-//
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-//    {
-//        if editingStyle == .Delete
-//        {
-//            dataSource.removeObjectAtIndexPath(indexPath)
-//        }
-//    }
 }

@@ -11,4 +11,12 @@ This project uses the lightweight dependency management tool Carthage. A Cartfil
 
 	carthage bootstrap
 	
-##
+## Run project
+We'll see that this UI is there, but there is no data
+
+## Add data
+Launch the data importing from local sample data
+
+## make data import on background thread
+
+## Make data not re-import on every launch

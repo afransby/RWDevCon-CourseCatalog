@@ -9,18 +9,9 @@
 import CoreData
 import Swell
 
-
-private func cast<T, U>(object:T?) -> U?
-{
-    if let object = object {
-        return object as? U
-    }
-    return .None
-}
-
 public class CoreDataStack
 {
-    private lazy var logger : Logger = Swell.getLogger("CoreDataStack")
+    internal lazy var logger : Logger = Swell.getLogger("CoreDataStack")
     
     let storeName : String?
     private lazy var storeURL : NSURL? = {
@@ -40,7 +31,7 @@ public class CoreDataStack
     {
         return "CoreDataStack:\n" +
             "Context: \(context)\n" +
-            "Model: \(model)\n" +
+            "Model: \(model.entitiesByName)\n" +
             "Coordinator: \(coordinator)"
     }
 
@@ -63,7 +54,7 @@ public class CoreDataStack
         return context
     }
 
-    private var backgroundContext : NSManagedObjectContext {
+    internal var backgroundContext : NSManagedObjectContext {
         return savingContext
     }
 
@@ -101,7 +92,7 @@ public class CoreDataStack
             logger.debug("-- Added Store: \(store)")
         }
         if let error = error {
-            logger.debug("ERROR: \(error)")
+            logger.error("\(error)")
         }
     }
 
@@ -117,88 +108,3 @@ public class CoreDataStack
     }()
 }
 
-private func entityNameFromType<T : NSManagedObject>(type:T.Type) -> String? {
-    return NSStringFromClass(type).componentsSeparatedByString(".").last
-}
-
-extension CoreDataStack
-{
-    func find<T : NSManagedObject>(type:T.Type, orderedBy: [NSSortDescriptor]? = nil, predicate:NSPredicate? = nil) -> [T]?
-    {
-        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
-        request.predicate = predicate
-        request.sortDescriptors = orderedBy
-        
-        var error : NSError?
-        let result = mainContext.executeFetchRequest(request, error: &error) as? [T]
-        if result == nil
-        {
-            logger.error("[find] \(error)")
-        }
-        return result
-    }
-    
-    func findFirst<T : NSManagedObject>(type:T.Type, predicate:NSPredicate) -> T?
-    {
-        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
-        request.predicate = predicate
-        request.fetchLimit = 1
-        
-        var error : NSError?
-        let result = mainContext.executeFetchRequest(request, error: &error) as? [T]
-        if result == nil
-        {
-            logger.error("[find] \(error)")
-        }
-        return result?.first
-    }
-
-    func exists<T : NSManagedObject>(type:T.Type, predicate:NSPredicate) -> Bool
-    {
-        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
-        request.predicate = predicate
-
-        var error : NSError?
-        let count = mainContext.countForFetchRequest(request, error: &error)
-        if count == NSNotFound
-        {
-            logger.error("[exists] \(error)")
-        }
-        return count > 0
-    }
-
-    //CRUD
-    public func create<T : NSManagedObject>(type:T.Type) -> T?
-    {
-        return create(type, inContext: mainContext)
-    }
-
-    func createInBackground<T : NSManagedObject>(type:T.Type) -> T?
-    {
-        return create(type, inContext: backgroundContext)
-    }
-    
-    func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T?
-    {
-        if let entityName = entityNameFromType(type)
-        {
-            let entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as NSManagedObject
-            return cast(entity)
-        }
-        return .None
-    }
-    public func save()
-    {
-        saveUsing(Context: context)
-    }
-    
-    func saveUsing(Context context:NSManagedObjectContext)
-    {
-        var error : NSError?
-        let saved = context.save(&error)
-        if !saved
-        {
-            logger.error("Error saving: \(error)")
-        }
-    }
-}

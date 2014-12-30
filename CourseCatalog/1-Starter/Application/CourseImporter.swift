@@ -9,14 +9,13 @@
 import UIKit
 import Argo
 
-
-func compact<T>(items:[T?]) -> [T]
+func mapSome<T>(items:[T?]) -> [T]
 {
     return items.filter { $0 != nil }.map { $0! }
 }
 
-public class CourseImporter: NSObject {
-
+public class CourseImporter: NSObject
+{
     private var _results : [Course]?
     public var results : [Course] {
         return _results ?? []
@@ -44,7 +43,8 @@ public class CourseImporter: NSObject {
     {
         _results = data
                     >>- _Course.decodeObjects
-                    >>- compact
+                    >>- mapSome
                     >>- CourseAdapter(stack: self.stack).adapt
+        println("Decoded \(_results?.count) courses")
     }
 }
