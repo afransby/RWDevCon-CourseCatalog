@@ -18,10 +18,7 @@ func mapSome<T>(items:[T?]) -> [T]
 public class CourseImporter: NSObject
 {
     private let logger = Swell.getLogger("CourseImporter")
-    private var _results : [Course]?
-    public var results : [Course] {
-        return _results ?? []
-    }
+    public var results : [Course] = []
 
     let stack : CoreDataStack
 
@@ -29,24 +26,43 @@ public class CourseImporter: NSObject
         self.stack = stack
     }
 
+    func urlForResourceNamed(name:String, bundle:NSBundle) -> NSURL?
+    {
+        return bundle.URLForResource(name.stringByDeletingPathExtension, withExtension: name.pathExtension)
+    }
+    
+    func inputStreamFromURL(resourceURL:NSURL) -> NSInputStream?
+    {
+        return NSInputStream(URL: resourceURL)
+    }
+
+    func jsonObjectFromInputStream(inputStream:NSInputStream) -> AnyObject?
+    {
+        inputStream.open()
+        return NSJSONSerialization.JSONObjectWithStream(inputStream, options: NSJSONReadingOptions.allZeros, error: nil)
+    }
+    
     func importJSONDataInResourceNamed(name:String, inBundle bundle:NSBundle = NSBundle.mainBundle())
     {
-        if let resourceURL = bundle.URLForResource(name.stringByDeletingPathExtension, withExtension: name.pathExtension) {
-            let inputStream = NSInputStream(URL: resourceURL)
-            inputStream?.open()
-            if let json : AnyObject = NSJSONSerialization.JSONObjectWithStream(inputStream!, options: NSJSONReadingOptions.allZeros, error: nil)
-            {
-                importDataFrom(json)
-            }
+        if let url = urlForResourceNamed(name, bundle:bundle)
+        {
+            let courses = url
+                        >>- inputStreamFromURL
+                        >>- jsonObjectFromInputStream
+                        >>- importData
+            
+            results = courses ?? []
         }
     }
 
-    public func importDataFrom(data:AnyObject)
+    public func importData(From dataObject:AnyObject) -> [Course]
     {
-        _results = data
+        let results = dataObject
                     >>- _Course.decodeObjects
                     >>- mapSome
                     >>- CourseAdapter(stack: self.stack).adapt
-        logger.debug("Decoded \(_results?.count) courses")
+        
+        logger.debug("Decoded \(results?.count) courses")
+        return results ?? []
     }
 }
