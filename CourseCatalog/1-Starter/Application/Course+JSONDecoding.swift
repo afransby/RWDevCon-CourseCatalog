@@ -9,9 +9,11 @@
 import Foundation
 import Argo
 import CoreData
+import Swell
 
 class CourseAdapter
 {
+    private let logger = Logger.getLogger("CourseAdapter")
     let stack : CoreDataStack
     init(stack:CoreDataStack)
     {
@@ -37,7 +39,7 @@ class CourseAdapter
             let existingCourseIDs = existingCourses.map { $0.remoteID.integerValue }
             let newRawCourses = courses.filter { find(existingCourseIDs, $0.remoteID) == nil }
             
-            println("Adapting \(newRawCourses.count) new courses")
+            logger.debug("Adapting \(newRawCourses.count) new courses")
             return newRawCourses.map { self.adapt(from: $0) }
         }
         return []
@@ -50,7 +52,7 @@ class CourseAdapter
             let existingCourseIDs = existingCourses.map { $0.remoteID.integerValue }
             let existingRawCourses = rawCourses.filter { find(existingCourseIDs, $0.remoteID) != nil }
 
-            println("Adapting \(existingCourses.count) existing courses")
+            logger.debug("Adapting \(existingCourses.count) existing courses")
             return existingCourses.map { course in
                 let filtered = filter(rawCourses) { $0.remoteID == course.remoteID }
                 return self.adapt(course: course, from:filtered.first!)
