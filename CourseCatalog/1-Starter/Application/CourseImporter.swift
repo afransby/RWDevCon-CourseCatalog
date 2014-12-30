@@ -8,6 +8,7 @@
 
 import UIKit
 import Argo
+import Swell
 
 func mapSome<T>(items:[T?]) -> [T]
 {
@@ -16,6 +17,7 @@ func mapSome<T>(items:[T?]) -> [T]
 
 public class CourseImporter: NSObject
 {
+    private let logger = Swell.getLogger("CourseImporter")
     private var _results : [Course]?
     public var results : [Course] {
         return _results ?? []
@@ -45,6 +47,6 @@ public class CourseImporter: NSObject
                     >>- _Course.decodeObjects
                     >>- mapSome
                     >>- CourseAdapter(stack: self.stack).adapt
-        println("Decoded \(_results?.count) courses")
+        logger.debug("Decoded \(_results?.count) courses")
     }
 }
