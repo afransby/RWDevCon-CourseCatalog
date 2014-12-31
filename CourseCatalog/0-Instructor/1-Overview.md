@@ -5,6 +5,7 @@
 * Explain CatalogDataSource,CatalogTableViewDataSource
 * Explain Nib/Storyboard file Setup
 * Add JSON parsing
+* Add unit tests
 * Add Course Object Adapter
 * Add Course CoreData Objects
 * Make data importing functional (side note)

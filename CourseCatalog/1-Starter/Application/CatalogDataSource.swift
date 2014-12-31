@@ -51,7 +51,7 @@ import Swell
 
     func loadCourses()
     {
-        if !stack.exists(Course.self)
+        if !stack.exists(Course.self) //any(Course.self).existIn(stack)
         {
             let importer = CourseImporter(stack: stack)
             importer.importJSONDataInResourceNamed("Courses.json")

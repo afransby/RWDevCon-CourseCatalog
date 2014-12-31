@@ -29,8 +29,8 @@ import Argo
     {
         super.viewDidLoad()
 
-        navigationItem.leftBarButtonItem = self.editButtonItem()
-        navigationItem.rightBarButtonItem = createAddButton()
+//        navigationItem.leftBarButtonItem = self.editButtonItem()
+//        navigationItem.rightBarButtonItem = createAddButton()
         setupSplitViewController()
     }
 
@@ -42,12 +42,12 @@ import Argo
             self.detailViewController = controllers[controllers.count-1].topViewController as? CourseViewController
         }
     }
-
-    func createAddButton() -> UIBarButtonItem
-    {
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: dataSource, action: "addNewObject")
-        return addButton
-    }
+//
+//    func createAddButton() -> UIBarButtonItem
+//    {
+//        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: dataSource, action: "addNewObject")
+//        return addButton
+//    }
 
     func configureCourseViewController(controller:CourseViewController, indexPath:NSIndexPath)
     {
