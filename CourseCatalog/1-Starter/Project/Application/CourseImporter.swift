@@ -9,20 +9,17 @@
 import UIKit
 import Argo
 import Swell
-
-func mapSome<T>(items:[T?]) -> [T]
-{
-    return items.filter { $0 != nil }.map { $0! }
-}
+import CoreData
 
 public class CourseImporter: NSObject
 {
     private let logger = Swell.getLogger("CourseImporter")
     public var results : [Course] = []
+    internal dynamic var progress : Float = 0
 
     let stack : CoreDataStack
 
-    public init(stack:CoreDataStack = CoreDataStack()) {
+    public init(stack:CoreDataStack = CoreDataStack(storeName: "catalog.sqlite")) {
         self.stack = stack
     }
 
@@ -60,9 +57,31 @@ public class CourseImporter: NSObject
         let results = dataObject
                     >>- _Course.decodeObjects
                     >>- mapSome
-                    >>- CourseAdapter(stack: self.stack).adapt
+                    >>- adaptCourses
         
-        logger.debug("Decoded \(results?.count) courses")
+        logger.debug("Imported \(results?.count) courses")
         return results ?? []
+    }
+    
+    private var adaptCoursesTotal : Float = 0
+    private var adaptedCoursesCount = 0
+    func adaptCourses(courses:[_Course]) -> [Course]
+    {
+        let adapter = CourseAdapter(stack: stack)
+        adaptCoursesTotal = Float(courses.count)
+        logger.debug("Start Adapting \(adaptCoursesTotal) _Course objects")
+
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: Selector("contextDidChange:"), name: NSManagedObjectContextObjectsDidChangeNotification, object: stack.mainContext)
+        let results = adapter.adapt(courses)
+        notificationCenter.removeObserver(self, name: NSManagedObjectContextObjectsDidChangeNotification, object: stack.mainContext)
+        return results
+    }
+    
+    func contextDidChange(notification:NSNotification)
+    {
+        let insertedObjects = notification.userInfo?["inserted"] as NSSet
+        adaptedCoursesCount += insertedObjects.count
+        progress = Float(adaptedCoursesCount) / adaptCoursesTotal
     }
 }

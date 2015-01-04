@@ -27,8 +27,8 @@ import UIKit
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         
-        let object = catalogDataSource.objectAtIndexPath(indexPath) as TableViewCellDisplayable
-        cell.textLabel!.text = object.displayDescription
+        let object = catalogDataSource.courseAtIndexPath(indexPath) as TableViewCellDisplayable
+        cell.textLabel?.text = object.displayDescription
         return cell
     }
 

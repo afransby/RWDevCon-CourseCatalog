@@ -11,9 +11,10 @@ You'll see that this project uses Argo and Swell, and they are missing. We need 
 This project uses the lightweight dependency management tool Carthage. A Cartfile with the proper dependencies is 
 
 	carthage bootstrap
-	
-## Run project
-We'll see that this UI is there, but there is no data
+
+##Add Data Source Object to Storyboard
+
+##Add TableView Data Source Object to Storyboard	
 
 ## Add data
 Launch the data importing from local sample data

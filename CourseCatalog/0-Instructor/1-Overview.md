@@ -1,9 +1,9 @@
 
 * Setup Starter Project
 * Build/Run. See no data
-* Explain CoreDataStack object
-* Explain CatalogDataSource,CatalogTableViewDataSource
-* Explain Nib/Storyboard file Setup
+* Quickly Construct CoreData Stack
+* Add Catalog DataSource to Storyboard
+* Add Catalog TableView DataSource to Storyboard
 * Add JSON parsing
 * Add unit tests
 * Add Course Object Adapter
@@ -32,4 +32,4 @@
 * push/pop detail view to show how to launch a single update command without re-requesting the same information all the time
 
 
-
+* Can you make a progress bar and show the import process updating?

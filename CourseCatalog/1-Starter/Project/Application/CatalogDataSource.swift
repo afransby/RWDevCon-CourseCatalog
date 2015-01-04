@@ -17,7 +17,11 @@ import Swell
 
 @objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
 {
-    lazy var logger = Logger.getLogger("CatalogDataSource")
+    @IBOutlet var progressBar : UIProgressView!
+    @IBOutlet weak var delegate : CatalogDataSourceDelegate?
+    @IBOutlet private var stack : CoreDataStack!
+    private let logger = Swell.getLogger("CatalogDataSource")
+    
     lazy var courses : NSFetchedResultsController =
     {
         let request = NSFetchRequest(entityName: Course.entityName())
@@ -39,27 +43,42 @@ import Swell
         return controller
     }()
 
-    let stack = CoreDataStack()
-    @IBOutlet weak var delegate : CatalogDataSourceDelegate?
-
-    override init()
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        loadCourses()
+//    }
+    
+    private var catalogDataSourceObservingContext = "loadCourses"
+    @IBAction func loadCourses()
     {
-        super.init()
-        logger.debug("Loading Catalog Data Source")
-        loadCourses()
-    }
-
-    func loadCourses()
-    {
-        if !stack.exists(Course.self) //any(Course.self).existIn(stack)
+        if !stack.exists(Course.self)
         {
+            logger.debug("Loading Catalog Data Source")
             let importer = CourseImporter(stack: stack)
+            let options : NSKeyValueObservingOptions = .New | .Initial
+            importer.addObserver(self, forKeyPath: "progress", options: options, context: &catalogDataSourceObservingContext)
             importer.importJSONDataInResourceNamed("Courses.json")
+            importer.removeObserver(self, forKeyPath: "progress", context: &catalogDataSourceObservingContext)
             stack.save()
         }
     }
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if context == &catalogDataSourceObservingContext
+        {
+            if keyPath == "progress"
+            {
+                let newValue = change[NSKeyValueChangeNewKey] as? NSNumber
+                self.progressBar?.progress = Float(newValue ?? 0)
+            }
+        }
+        else
+        {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
+    }
 
-    func objectAtIndexPath(indexPath:NSIndexPath) -> Course
+    func courseAtIndexPath(indexPath:NSIndexPath) -> Course
     {
         return courses.objectAtIndexPath(indexPath) as Course
     }

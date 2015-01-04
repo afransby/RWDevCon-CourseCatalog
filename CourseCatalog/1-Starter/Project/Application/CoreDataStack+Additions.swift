@@ -10,24 +10,19 @@ import Foundation
 import CoreData
 import Swell
 
-private func entityNameFromType<T : NSManagedObject>(type:T.Type) -> String?
+private func entityNameFromType<T : NSManagedObject>(type:T.Type) -> String
 {
-    return NSStringFromClass(type).componentsSeparatedByString(".").last
-}
-
-private func cast<T, U>(object:T?) -> U?
-{
-    if let object = object {
-        return object as? U
+    if let entityName = type.entityName().componentsSeparatedByString(".").last {
+        return entityName
     }
-    return .None
+    return NSStringFromClass(type)
 }
 
 extension CoreDataStack
 {
     func find<T : NSManagedObject>(type:T.Type, orderedBy: [NSSortDescriptor]? = nil, predicate:NSPredicate? = nil) -> [T]?
     {
-        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
+        let request = NSFetchRequest(entityName: entityNameFromType(type))
         request.predicate = predicate
         request.sortDescriptors = orderedBy
         
@@ -42,7 +37,7 @@ extension CoreDataStack
     
     func findFirst<T : NSManagedObject>(type:T.Type, predicate:NSPredicate? = nil) -> T?
     {
-        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
+        let request = NSFetchRequest(entityName: entityNameFromType(type))
         request.predicate = predicate
         request.fetchLimit = 1
         
@@ -57,7 +52,7 @@ extension CoreDataStack
     
     func exists<T : NSManagedObject>(type:T.Type, predicate:NSPredicate? = nil) -> Bool
     {
-        let request = NSFetchRequest(entityName: entityNameFromType(type)!)
+        let request = NSFetchRequest(entityName: entityNameFromType(type))
         request.predicate = predicate
         
         var error : NSError?
@@ -69,7 +64,6 @@ extension CoreDataStack
         return count > 0
     }
     
-    //CRUD
     public func create<T : NSManagedObject>(type:T.Type) -> T?
     {
         return create(type, inContext: mainContext)
@@ -77,22 +71,19 @@ extension CoreDataStack
     
     func createInBackground<T : NSManagedObject>(type:T.Type) -> T?
     {
-        return create(type, inContext: backgroundContext)
+        return create(type, inContext: mainContext)
     }
     
     func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T?
     {
-        if let entityName = entityNameFromType(type)
-        {
-            let entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as NSManagedObject
-            return cast(entity)
-        }
-        return .None
+        let entityName = entityNameFromType(type)
+        let entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as NSManagedObject
+        return cast(entity)
     }
     
     public func save()
     {
-        saveUsing(Context: backgroundContext)
+        saveUsing(Context: mainContext)
     }
     
     func saveUsing(Context context:NSManagedObjectContext)

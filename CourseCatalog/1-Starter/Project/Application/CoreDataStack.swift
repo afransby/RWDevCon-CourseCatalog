@@ -9,11 +9,12 @@
 import CoreData
 import Swell
 
-public class CoreDataStack
+@IBDesignable @objc
+public class CoreDataStack : NSObject
 {
     internal lazy var logger : Logger = Swell.getLogger("CoreDataStack")
     
-    let storeName : String?
+    @IBInspectable var storeName : String?
     private lazy var storeURL : NSURL? = {
         let searchPaths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)
         let searchPath : String = searchPaths.first? as String
@@ -35,7 +36,7 @@ public class CoreDataStack
             "Coordinator: \(coordinator)"
     }
 
-    public init()
+    public override init()
     {
     }
 
@@ -46,8 +47,9 @@ public class CoreDataStack
 
     init(url:NSURL)
     {
+        super.init()
         self.storeName = url.lastPathComponent!
-        self.storeURL = url
+        storeURL = url
     }
 
     internal var mainContext : NSManagedObjectContext {
@@ -103,7 +105,6 @@ public class CoreDataStack
         let logger = self.logger
         logger.debug("Loaded Model: \(model.entityVersionHashesByName)")
         logger.debug("-- from Bundle: \(bundle)")
-        logger.debug("-- Model: \(model.entities)")
         return model
     }()
 }

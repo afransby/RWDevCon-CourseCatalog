@@ -11,6 +11,9 @@
 		C73517DB1A49D93F00193CAE /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73517D91A49D93F00193CAE /* Argo.framework */; };
 		C73517DC1A49D93F00193CAE /* Swell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73517DA1A49D93F00193CAE /* Swell.framework */; };
 		C73517E21A49FF8F00193CAE /* NSManagedObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73517E11A49FF8F00193CAE /* NSManagedObject+Additions.swift */; };
+		C74F6B391A58AC9100B01E49 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73517E31A4A586500193CAE /* HelperFunctions.swift */; };
+		C74F6B3B1A58B57500B01E49 /* SampleCourse.json in Resources */ = {isa = PBXBuildFile; fileRef = C74F6B3A1A58B57500B01E49 /* SampleCourse.json */; };
+		C74F6B3D1A58B5DD00B01E49 /* CourseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F6B3C1A58B5DD00B01E49 /* CourseDataSource.swift */; };
 		C76222FC1A521C3E009D2879 /* Argo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C73517D91A49D93F00193CAE /* Argo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C76222FD1A521C41009D2879 /* Swell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C73517DA1A49D93F00193CAE /* Swell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C76A6A9E1A357B3D001440C5 /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
@@ -30,6 +33,8 @@
 		C7BA6EC41A5223CD00F6195E /* CourseSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B366F41A353116008E6C10 /* CourseSpecs.swift */; };
 		C7BA6EC51A5223CD00F6195E /* CatalogDataSourceSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */; };
 		C7BA6EC71A522EBE00F6195E /* CoreDataStack+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BA6EC61A522EBE00F6195E /* CoreDataStack+Additions.swift */; };
+		C7EAE1271A58C3820028D40A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EAE1261A58C3820028D40A /* Networking.swift */; };
+		C7EAE1711A59C13F0028D40A /* CourseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EAE1701A59C13F0028D40A /* CourseAdapter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +70,8 @@
 		C73517DE1A49D94D00193CAE /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
 		C73517E11A49FF8F00193CAE /* NSManagedObject+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Additions.swift"; sourceTree = "<group>"; };
 		C73517E31A4A586500193CAE /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		C74F6B3A1A58B57500B01E49 /* SampleCourse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleCourse.json; sourceTree = "<group>"; };
+		C74F6B3C1A58B5DD00B01E49 /* CourseDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDataSource.swift; sourceTree = "<group>"; };
 		C782E86C1A3418DE006A9DDE /* CourseCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C782E8981A341AA6006A9DDE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C782E89A1A341AA6006A9DDE /* CatalogDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogDataSource.swift; sourceTree = "<group>"; };
@@ -80,11 +87,13 @@
 		C7B0E5D71A4A61F4002EA201 /* CatalogTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogTableViewDataSource.swift; sourceTree = "<group>"; };
 		C7B366E51A350061008E6C10 /* CourseImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseImporter.swift; sourceTree = "<group>"; };
 		C7B366E81A350068008E6C10 /* Courses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Courses.xcdatamodel; sourceTree = "<group>"; };
-		C7B366EA1A35006F008E6C10 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = SOURCE_ROOT; };
+		C7B366EA1A35006F008E6C10 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Course.swift; path = Application/Course.swift; sourceTree = SOURCE_ROOT; };
 		C7B366EC1A350077008E6C10 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C7B366F41A353116008E6C10 /* CourseSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseSpecs.swift; sourceTree = "<group>"; };
 		C7BA6EB71A5222BC00F6195E /* CourseCatalogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseCatalogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BA6EC61A522EBE00F6195E /* CoreDataStack+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataStack+Additions.swift"; sourceTree = "<group>"; };
+		C7EAE1261A58C3820028D40A /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		C7EAE1701A59C13F0028D40A /* CourseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAdapter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				C782E8C21A34E1E6006A9DDE /* Courses.json */,
+				C74F6B3A1A58B57500B01E49 /* SampleCourse.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -200,6 +210,7 @@
 				C7B366EA1A35006F008E6C10 /* Course.swift */,
 				C73517D31A48D40300193CAE /* Course+JSONDecoding.swift */,
 				C7B366E51A350061008E6C10 /* CourseImporter.swift */,
+				C7EAE1701A59C13F0028D40A /* CourseAdapter.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -218,6 +229,8 @@
 			children = (
 				C7B0E5D71A4A61F4002EA201 /* CatalogTableViewDataSource.swift */,
 				C782E89A1A341AA6006A9DDE /* CatalogDataSource.swift */,
+				C74F6B3C1A58B5DD00B01E49 /* CourseDataSource.swift */,
+				C7EAE1261A58C3820028D40A /* Networking.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -304,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C74F6B3B1A58B57500B01E49 /* SampleCourse.json in Resources */,
 				C76A6A9E1A357B3D001440C5 /* Courses.json in Resources */,
 				C782E8A81A341AA6006A9DDE /* LaunchScreen.xib in Resources */,
 				C782E8A91A341AA6006A9DDE /* Main.storyboard in Resources */,
@@ -324,14 +338,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7EAE1711A59C13F0028D40A /* CourseAdapter.swift in Sources */,
 				C7B366EB1A35006F008E6C10 /* Course.swift in Sources */,
 				C7B366E91A350068008E6C10 /* Courses.xcdatamodeld in Sources */,
 				C782E8A71A341AA6006A9DDE /* CourseListViewController.swift in Sources */,
 				C7BA6EC71A522EBE00F6195E /* CoreDataStack+Additions.swift in Sources */,
 				C782E8A31A341AA6006A9DDE /* AppDelegate.swift in Sources */,
 				C7B366ED1A350077008E6C10 /* CoreDataStack.swift in Sources */,
+				C7EAE1271A58C3820028D40A /* Networking.swift in Sources */,
 				C7B366E61A350062008E6C10 /* CourseImporter.swift in Sources */,
+				C74F6B391A58AC9100B01E49 /* HelperFunctions.swift in Sources */,
 				C7B0E5D81A4A61F4002EA201 /* CatalogTableViewDataSource.swift in Sources */,
+				C74F6B3D1A58B5DD00B01E49 /* CourseDataSource.swift in Sources */,
 				C73517E21A49FF8F00193CAE /* NSManagedObject+Additions.swift in Sources */,
 				C782E8A51A341AA6006A9DDE /* CatalogDataSource.swift in Sources */,
 				C782E8A61A341AA6006A9DDE /* CourseViewController.swift in Sources */,
@@ -560,6 +578,7 @@
 				C7BA6EC11A5222BC00F6195E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
