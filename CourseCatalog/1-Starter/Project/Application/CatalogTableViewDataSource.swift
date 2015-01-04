@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @objc class CatalogTableViewDataSource : NSObject, CatalogDataSourceDelegate, UITableViewDataSource
 {
@@ -14,13 +15,15 @@ import UIKit
     @IBOutlet var tableView : UITableView!
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return catalogDataSource.courses.sections?.count ?? 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let courses = catalogDataSource.courses
-        return courses.fetchedObjects?.count ?? 0
+        let coursesInSection = courses.sections?[section] as NSFetchedResultsSectionInfo?
+        let courseCount = coursesInSection?.numberOfObjects ?? 0
+        return courseCount
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -32,14 +35,22 @@ import UIKit
         return cell
     }
 
+    func dataSourceWillChangeContent(dataSource:CatalogDataSource) {
+        tableView.beginUpdates()
+    }
+    
     func dataSourceDidAddNewObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
     {
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
+    func dataSourceDidChangeContent(dataSource:CatalogDataSource) {
+        tableView.endUpdates()
+    }
+    
     func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
     {
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
 }
 

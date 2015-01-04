@@ -71,39 +71,50 @@ extension CoreDataStack
     
     func createInBackground<T : NSManagedObject>(type:T.Type) -> T?
     {
-        return create(type, inContext: mainContext)
+        return create(type, inContext: self.backgroundContext)
     }
     
     func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T?
     {
-        let entityName = entityNameFromType(type)
-        let entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as NSManagedObject
-        return cast(entity)
+        var object : T?
+        //TODO: add after adding ConcurrencyDebug flag
+        context.performBlockAndWait {
+            let entityName = entityNameFromType(type)
+            let entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as NSManagedObject
+            object = cast(entity)
+        }
+        return object
     }
     
     public func save()
     {
-        saveUsing(Context: mainContext)
+        saveUsing(Context: backgroundContext)
     }
     
+    //TODO: Write save
     func saveUsing(Context context:NSManagedObjectContext)
     {
-        var error : NSError?
-        if context.hasChanges
-        {
-            let saved = context.save(&error)
-            if !saved
+        let logger = self.logger
+        //TODO: Start without performBlock add ConcurrencyDebug flag
+        context.performBlock {
+            var error : NSError?
+            
+            if context.hasChanges
             {
-                logger.error("Error saving: \(error)")
+                let saved = context.save(&error)
+                if !saved
+                {
+                    logger.error("Error saving: \(error)")
+                }
+                else
+                {
+                    logger.debug("Saved context successfully")
+                }
             }
             else
             {
-                logger.debug("Saved context successfully")
+                logger.warn("No changes to save")
             }
-        }
-        else
-        {
-            logger.warn("No changes to save")
         }
     }
 }

@@ -65,6 +65,7 @@ public class CourseImporter: NSObject
     
     private var adaptCoursesTotal : Float = 0
     private var adaptedCoursesCount = 0
+    //TODO: Add steps for watching import progress
     func adaptCourses(courses:[_Course]) -> [Course]
     {
         let adapter = CourseAdapter(stack: stack)

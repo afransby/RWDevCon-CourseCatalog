@@ -32,7 +32,7 @@ public class CoreDataStack : NSObject
     {
         return "CoreDataStack:\n" +
             "Context: \(context)\n" +
-            "Model: \(model.entitiesByName)\n" +
+            "Model: \(model.entityVersionHashesByName)\n" +
             "Coordinator: \(coordinator)"
     }
 
@@ -68,9 +68,26 @@ public class CoreDataStack : NSObject
 
     private lazy var savingContext : NSManagedObjectContext = {
         let savingContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-        savingContext.parentContext = self.context
+        savingContext.persistentStoreCoordinator = self.coordinator
+        self.watchSavesToContext(savingContext)
         return savingContext
     }()
+    
+    private func watchSavesToContext(context:NSManagedObjectContext)
+    {
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        
+        let selector = Selector("mergeChanges:")
+        notificationCenter.addObserver(self, selector: selector, name: NSManagedObjectContextDidSaveNotification, object: context)
+    }
+    
+    internal func mergeChanges(notification:NSNotification) {
+        let context = mainContext
+        logger.debug("Merging changes...")
+        context.performBlock {
+            context.mergeChangesFromContextDidSaveNotification(notification)
+        }
+    }
 
     private lazy var coordinator : NSPersistentStoreCoordinator = {
         let coordinator : NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)

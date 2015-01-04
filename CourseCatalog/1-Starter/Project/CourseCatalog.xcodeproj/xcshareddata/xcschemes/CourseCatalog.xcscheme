@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C782E8B41A34E1C0006A9DDE"
+               BlueprintIdentifier = "C7BA6EB61A5222BC00F6195E"
                BuildableName = "CourseCatalogTests.xctest"
                BlueprintName = "CourseCatalogTests"
                ReferencedContainer = "container:CourseCatalog.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C72D12241A47BCC900AE8061"
+               BlueprintIdentifier = "C7BA6EB61A5222BC00F6195E"
                BuildableName = "CourseCatalogTests.xctest"
                BlueprintName = "CourseCatalogTests"
                ReferencedContainer = "container:CourseCatalog.xcodeproj">
@@ -60,7 +60,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C782E8B41A34E1C0006A9DDE"
+               BlueprintIdentifier = "C7BA6EB61A5222BC00F6195E"
                BuildableName = "CourseCatalogTests.xctest"
                BlueprintName = "CourseCatalogTests"
                ReferencedContainer = "container:CourseCatalog.xcodeproj">
@@ -70,7 +70,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C72D12241A47BCC900AE8061"
+               BlueprintIdentifier = "C7BA6EB61A5222BC00F6195E"
                BuildableName = "CourseCatalogTests.xctest"
                BlueprintName = "CourseCatalogTests"
                ReferencedContainer = "container:CourseCatalog.xcodeproj">
@@ -106,6 +106,12 @@
             ReferencedContainer = "container:CourseCatalog.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-com.apple.CoreData.ConcurrencyDebug 1"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

@@ -13,6 +13,8 @@ import Swell
 {
     func dataSourceDidAddNewObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
     func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
+    func dataSourceWillChangeContent(dataSource:CatalogDataSource)
+    func dataSourceDidChangeContent(dataSource:CatalogDataSource)
 }
 
 @objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
@@ -59,7 +61,7 @@ import Swell
             importer.addObserver(self, forKeyPath: "progress", options: options, context: &catalogDataSourceObservingContext)
             importer.importJSONDataInResourceNamed("Courses.json")
             importer.removeObserver(self, forKeyPath: "progress", context: &catalogDataSourceObservingContext)
-            stack.save()
+            stack.saveUsing(Context: stack.backgroundContext)
         }
     }
     
@@ -82,9 +84,15 @@ import Swell
     {
         return courses.objectAtIndexPath(indexPath) as Course
     }
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+//        println("Fetched Rows: \(controller.fetchedObjects?.count)")
+        delegate?.dataSourceWillChangeContent(self)
+    }
 
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
     {
+//        println("Fetched Rows: \(controller.fetchedObjects?.count)")
         switch(type) {
         case .Insert:
             delegate?.dataSourceDidAddNewObject(self, atIndexPath: newIndexPath!)
@@ -95,6 +103,11 @@ import Swell
         case .Move:
             logger.debug("Moved row from \(indexPath!) to \(newIndexPath!)")
         }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+//        println("Fetched Rows: \(controller.fetchedObjects?.count)")
+        delegate?.dataSourceDidChangeContent(self)
     }
 }
 
