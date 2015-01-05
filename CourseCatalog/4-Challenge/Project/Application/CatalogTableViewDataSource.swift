@@ -47,10 +47,5 @@ import CoreData
     func dataSourceDidChangeContent(dataSource:CatalogDataSource) {
         tableView.endUpdates()
     }
-    
-    func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
-    {
-//        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    }
 }
 

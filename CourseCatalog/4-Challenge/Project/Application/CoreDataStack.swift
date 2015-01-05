@@ -105,6 +105,7 @@ public class CoreDataStack : NSObject
         case .None:
             store = coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: &error)
         }
+
         logger.debug("Loaded Coordinator: \(coordinator)")
         if let store = store
         {

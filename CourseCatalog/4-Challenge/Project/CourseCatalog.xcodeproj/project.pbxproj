@@ -11,6 +11,10 @@
 		C73517DB1A49D93F00193CAE /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73517D91A49D93F00193CAE /* Argo.framework */; };
 		C73517DC1A49D93F00193CAE /* Swell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73517DA1A49D93F00193CAE /* Swell.framework */; };
 		C73517E21A49FF8F00193CAE /* NSManagedObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73517E11A49FF8F00193CAE /* NSManagedObject+Additions.swift */; };
+		C73BD8011A5B09B6001E21FA /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C73517DD1A49D94D00193CAE /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C73BD8021A5B09B6001E21FA /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C73517DE1A49D94D00193CAE /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C73BD8031A5B0A03001E21FA /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
+		C73BD8041A5B0A03001E21FA /* SampleCourse.json in Resources */ = {isa = PBXBuildFile; fileRef = C74F6B3A1A58B57500B01E49 /* SampleCourse.json */; };
 		C74F6B391A58AC9100B01E49 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73517E31A4A586500193CAE /* HelperFunctions.swift */; };
 		C74F6B3B1A58B57500B01E49 /* SampleCourse.json in Resources */ = {isa = PBXBuildFile; fileRef = C74F6B3A1A58B57500B01E49 /* SampleCourse.json */; };
 		C74F6B3D1A58B5DD00B01E49 /* CourseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F6B3C1A58B5DD00B01E49 /* CourseDataSource.swift */; };
@@ -48,6 +52,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		C73BD8001A5B09A4001E21FA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C73BD8011A5B09B6001E21FA /* Nimble.framework in CopyFiles */,
+				C73BD8021A5B09B6001E21FA /* Quick.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7E6C2B71A47899500C54FE2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,6 +278,7 @@
 				C7BA6EB31A5222BC00F6195E /* Sources */,
 				C7BA6EB41A5222BC00F6195E /* Frameworks */,
 				C7BA6EB51A5222BC00F6195E /* Resources */,
+				C73BD8001A5B09A4001E21FA /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -328,6 +344,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C73BD8031A5B0A03001E21FA /* Courses.json in Resources */,
+				C73BD8041A5B0A03001E21FA /* SampleCourse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,10 +535,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/CourseraCatalog-dujqordlvsgrhcdfwzmvxxnvrqox/Build/Products/Debug-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -538,11 +558,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/CourseraCatalog-dujqordlvsgrhcdfwzmvxxnvrqox/Build/Products/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = Tests/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

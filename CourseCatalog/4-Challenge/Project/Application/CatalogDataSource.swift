@@ -12,9 +12,9 @@ import Swell
 @objc protocol CatalogDataSourceDelegate
 {
     func dataSourceDidAddNewObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
-    func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
     func dataSourceWillChangeContent(dataSource:CatalogDataSource)
     func dataSourceDidChangeContent(dataSource:CatalogDataSource)
+    optional func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
 }
 
 @objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
@@ -97,7 +97,7 @@ import Swell
         case .Insert:
             delegate?.dataSourceDidAddNewObject(self, atIndexPath: newIndexPath!)
         case .Delete:
-            delegate?.dataSourceDidRemoveObject(self, atIndexPath: indexPath!)
+            delegate?.dataSourceDidRemoveObject!(self, atIndexPath: indexPath!)
         case .Update:
             logger.debug("Updated row \(indexPath!)")
         case .Move:

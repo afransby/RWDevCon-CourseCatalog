@@ -16,7 +16,7 @@ class CourseDataSource: NSObject {
     init(course:Course) {
 
         var error : NSError?
-        self.course = course //stack.mainContext.existingObjectWithID(course.objectID, error: &error) as Course?
+        self.course = course
 
         super.init()
     }
