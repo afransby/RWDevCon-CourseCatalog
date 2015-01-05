@@ -73,9 +73,9 @@ public class CourseImporter: NSObject
         logger.debug("Start Adapting \(adaptCoursesTotal) _Course objects")
 
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: Selector("contextDidChange:"), name: NSManagedObjectContextObjectsDidChangeNotification, object: stack.mainContext)
+        notificationCenter.addObserver(self, selector: Selector("contextDidChange:"), name: NSManagedObjectContextObjectsDidChangeNotification, object: stack.backgroundContext)
         let results = adapter.adapt(courses)
-        notificationCenter.removeObserver(self, name: NSManagedObjectContextObjectsDidChangeNotification, object: stack.mainContext)
+        notificationCenter.removeObserver(self, name: NSManagedObjectContextObjectsDidChangeNotification, object: stack.backgroundContext)
         return results
     }
     

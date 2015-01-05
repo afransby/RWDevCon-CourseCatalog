@@ -74,13 +74,15 @@ class CourseAdapter
     private func adapt(course:Course? = nil, from rawCourse:_Course) -> Course
     {
         var adapted : Course = course ?? stack.createInBackground(Course.self)!
-        
-        stack.backgroundContext.performBlockAndWait {
+
+        let context = stack.backgroundContext
+        context.performBlockAndWait {
             adapted.remoteID = rawCourse.remoteID
             adapted.name = rawCourse.name
             adapted.shortName = rawCourse.shortName
+            context.processPendingChanges()
         }
-        stack.mainContext.processPendingChanges()
+
 //        NSThread.sleepForTimeInterval(0.1)
         return adapted
     }

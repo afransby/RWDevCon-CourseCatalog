@@ -70,7 +70,7 @@ import Swell
         {
             if keyPath == "progress"
             {
-                let newValue = change[NSKeyValueChangeNewKey] as? NSNumber
+                let newValue = change[NSKeyValueChangeNewKey] as? Float
                 self.progressBar?.progress = Float(newValue ?? 0)
             }
         }
