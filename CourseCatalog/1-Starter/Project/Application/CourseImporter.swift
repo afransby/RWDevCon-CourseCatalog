@@ -73,16 +73,23 @@ public class CourseImporter: NSObject
         logger.debug("Start Adapting \(adaptCoursesTotal) _Course objects")
 
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: Selector("contextDidChange:"), name: NSManagedObjectContextObjectsDidChangeNotification, object: stack.backgroundContext)
+        let context = stack.backgroundContext
+        notificationCenter.addObserver(self, selector: Selector("contextDidChange:"), name: NSManagedObjectContextObjectsDidChangeNotification, object: context)
         let results = adapter.adapt(courses)
-        notificationCenter.removeObserver(self, name: NSManagedObjectContextObjectsDidChangeNotification, object: stack.backgroundContext)
+        notificationCenter.removeObserver(self, name: NSManagedObjectContextObjectsDidChangeNotification, object: context)
         return results
     }
     
     func contextDidChange(notification:NSNotification)
     {
-        let insertedObjects = notification.userInfo?["inserted"] as NSSet
+        let insertedObjects = notification.insertedObjects
         adaptedCoursesCount += insertedObjects.count
         progress = Float(adaptedCoursesCount) / adaptCoursesTotal
+    }
+}
+
+extension NSNotification {
+    var insertedObjects : NSSet {
+        return userInfo?[NSInsertedObjectsKey] as? NSSet ?? NSSet()
     }
 }
