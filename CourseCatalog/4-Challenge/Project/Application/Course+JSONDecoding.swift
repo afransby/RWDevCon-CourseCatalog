@@ -20,16 +20,29 @@ struct _Course
     let largeIconURLString:String?
     let aboutCourse:String?
     let courseDescription:String?
+
+    static func create(remoteID:Int)
+        (name:String)
+        (shortName:String)
+        (largeIcon:String?)
+        (smallIcon:String?)
+        (courseDescription:String?)
+        (aboutTheCourse:String?)
+        -> _Course
+    {
+        return _Course(remoteID: remoteID, name: name, shortName:shortName, smallIconURLString:smallIcon, largeIconURLString:largeIcon, aboutCourse:aboutTheCourse, courseDescription:courseDescription)
+    }
+
 }
 
 extension _Course : JSONDecodable
 {
-    static func decodeObjects(json: JSON) -> [_Course?]?
+    static func decodeObjects(json: JSONValue) -> [_Course?]?
     {
         let logger = Swell.getLogger("_Course:JSONDecodable")
-        let elements = json["elements"] as? [AnyObject]
-        let elementCount = (elements != nil) ? elements!.count : 0
+        let elements : [JSONValue]? = json["elements"]?.value()
         
+        let elementCount = (elements != nil) ? elements!.count : 0
         logger.debug("Decoding \(elementCount) elements")
         
         let results : [_Course?]? = elements?.map { elementInfo in
@@ -39,30 +52,18 @@ extension _Course : JSONDecodable
         return results
     }
     
-    static func decode(json: JSON) -> _Course?
+    static func decode(json: JSONValue) -> _Course?
     {
-        return _JSONParse(json) >>-
+        return json >>-
             {   data in
                 _Course.create
                     <^> data <| "id"
                     <*> data <| "name"
                     <*> data <| "shortName"
-//                    <*> data <|* "largeIcon"
-//                    <*> data <|* "smallIcon"
-//                    <*> data <|* "shortDescription"
-//                    <*> data <|* "aboutTheCourse"
+                    <*> data <|? "largeIcon"
+                    <*> data <|? "smallIcon"
+                    <*> data <|? "shortDescription"
+                    <*> data <|? "aboutTheCourse"
             }
-    }
-    
-    static func create(remoteID:Int)
-        (name:String)
-        (shortName:String)
-//        (largeIcon:String?)
-//        (smallIcon:String?)
-//        (courseDescription:String?)
-//        (aboutTheCourse:String?)
-        -> _Course
-    {
-        return _Course(remoteID: remoteID, name: name, shortName:shortName, smallIconURLString:nil, largeIconURLString:nil, aboutCourse:nil, courseDescription:nil)
     }
 }

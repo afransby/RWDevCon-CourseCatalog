@@ -33,10 +33,13 @@ public class CourseImporter: NSObject
         return NSInputStream(URL: resourceURL)
     }
 
-    func jsonObjectFromInputStream(inputStream:NSInputStream) -> AnyObject?
+    func jsonObjectFromInputStream(inputStream:NSInputStream) -> JSONValue?
     {
         inputStream.open()
-        return NSJSONSerialization.JSONObjectWithStream(inputStream, options: NSJSONReadingOptions.allZeros, error: nil)
+        if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithStream(inputStream, options: NSJSONReadingOptions.allZeros, error: nil) {
+            return JSONValue.parse(jsonObject)
+        }
+        return .None
     }
     
     func importJSONDataInResourceNamed(name:String, inBundle bundle:NSBundle = NSBundle.mainBundle())
@@ -52,7 +55,7 @@ public class CourseImporter: NSObject
         }
     }
 
-    public func importData(From dataObject:AnyObject) -> [Course]
+    public func importData(From dataObject:JSONValue) -> [Course]
     {
         let results = dataObject
                     >>- _Course.decodeObjects

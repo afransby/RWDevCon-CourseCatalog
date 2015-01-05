@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Argo
 import CourseCatalog
 
 class CatalogDataSourceSpecs: QuickSpec {
@@ -11,7 +12,7 @@ class CatalogDataSourceSpecs: QuickSpec {
             
             beforeSuite {
                 let testContent = Fixtures().jsonContent(Named: "Courses.json")
-                testImporter.importData(From:testContent)
+                testImporter.importData(From:JSONValue.parse(testContent))
             }
 
             it("should have correct number of elements") {

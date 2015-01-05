@@ -31,7 +31,7 @@ class CourseDataSource: NSObject {
         }
     }
 
-    func parseJSON(json:JSON) -> Course?
+    func parseJSON(json:JSONValue) -> Course?
     {
         return json
                 >>- _Course.decodeObjects
@@ -44,7 +44,7 @@ class CourseDataSource: NSObject {
         let baseURL = NSURL(string: "https://api.coursera.org/api/catalog.v1/courses")!
         let queryString = "id=\(id)&fields=largeIcon,smallIcon,shortDescription,aboutTheCourse"
 
-        let courseResource = jsonResource("courses", .GET, [:], parseJSON)
+        let courseResource = jsonResource("courses", .GET, .JSONNull, parseJSON)
         let modifyRequest = { (urlRequest : NSMutableURLRequest) in
             urlRequest.URL = NSURL(string:baseURL.absoluteString! + "?" + queryString)
         }

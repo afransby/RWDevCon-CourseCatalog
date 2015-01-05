@@ -110,15 +110,21 @@ public func apiRequest<A>(modifyRequest: NSMutableURLRequest -> (), baseURL: NSU
     task.resume()
 }
 
-func decodeJSON(data: NSData) -> JSONObject? {
-    return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: nil) as? [String:AnyObject]
+func decodeJSON(data: NSData) -> JSONValue? {
+    if let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: nil) {
+        return JSONValue.parse(json)
+    }
+    return .None
 }
 
-func encodeJSON(dict: JSONObject) -> NSData? {
-    return dict.count > 0 ? NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.allZeros, error: nil) : nil
+func encodeJSON(json: JSONValue) -> NSData? {
+    if let object = json.value() as [String:AnyObject]? {
+        return NSJSONSerialization.dataWithJSONObject(object, options: NSJSONWritingOptions.allZeros, error: nil)
+    }
+    return .None
 }
 
-public func jsonResource<A>(path: String, method: Method, requestParameters: JSONObject, parse: JSON -> A?) -> Resource<A> {
+public func jsonResource<A>(path: String, method: Method, requestParameters: JSONValue, parse: JSONValue -> A?) -> Resource<A> {
     let f = { decodeJSON($0) >>- parse }
     let jsonBody = encodeJSON(requestParameters)
     let headers = ["Content-Type": "application/json"]
