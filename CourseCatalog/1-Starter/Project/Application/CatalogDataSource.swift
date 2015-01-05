@@ -53,8 +53,8 @@ import Swell
     private var catalogDataSourceObservingContext = "loadCourses"
     @IBAction func loadCourses()
     {
-        if !stack.exists(Course.self)
-        {
+//        if !stack.exists(Course.self)
+//        {
             logger.debug("Loading Catalog Data Source")
             let importer = CourseImporter(stack: stack)
             let options : NSKeyValueObservingOptions = .New | .Initial
@@ -62,10 +62,11 @@ import Swell
             importer.importJSONDataInResourceNamed("Courses.json")
             importer.removeObserver(self, forKeyPath: "progress", context: &catalogDataSourceObservingContext)
             stack.saveUsing(Context: stack.backgroundContext)
-        }
+//        }
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
+    {
         if context == &catalogDataSourceObservingContext
         {
             if keyPath == "progress"
@@ -85,14 +86,13 @@ import Swell
         return courses.objectAtIndexPath(indexPath) as Course
     }
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-//        println("Fetched Rows: \(controller.fetchedObjects?.count)")
+    func controllerWillChangeContent(controller: NSFetchedResultsController)
+    {
         delegate?.dataSourceWillChangeContent(self)
     }
 
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
     {
-//        println("Fetched Rows: \(controller.fetchedObjects?.count)")
         switch(type) {
         case .Insert:
             delegate?.dataSourceDidAddNewObject(self, atIndexPath: newIndexPath!)
@@ -105,8 +105,8 @@ import Swell
         }
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-//        println("Fetched Rows: \(controller.fetchedObjects?.count)")
+    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    {
         delegate?.dataSourceDidChangeContent(self)
     }
 }

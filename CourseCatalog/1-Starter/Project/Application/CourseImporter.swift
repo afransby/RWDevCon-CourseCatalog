@@ -74,10 +74,21 @@ public class CourseImporter: NSObject
 
         let notificationCenter = NSNotificationCenter.defaultCenter()
         let context = stack.backgroundContext
-        notificationCenter.addObserver(self, selector: Selector("contextDidChange:"), name: NSManagedObjectContextObjectsDidChangeNotification, object: context)
-        let results = adapter.adapt(courses)
-        notificationCenter.removeObserver(self, name: NSManagedObjectContextObjectsDidChangeNotification, object: context)
+        var results : [Course] = []
+        watchNotificationsNamed(NSManagedObjectContextObjectsDidChangeNotification, fromObject: context, usingSelector: Selector("contextDidChange:"))
+        {
+            results = adapter.adapt(courses)
+        }
         return results
+    }
+    
+    func watchNotificationsNamed(notificationName:String, fromObject object:AnyObject? = nil, usingSelector selector:Selector, inScope scope:() -> ())
+    {
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        let watcher = self
+        notificationCenter.addObserver(watcher, selector: selector, name: notificationName, object: object)
+        scope()
+        notificationCenter.removeObserver(watcher, name: notificationName, object: object)
     }
     
     func contextDidChange(notification:NSNotification)

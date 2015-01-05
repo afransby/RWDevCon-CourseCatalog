@@ -13,18 +13,17 @@ import CoreData
 
 struct _Course
 {
+    let remoteID:Int
     let name:String
     let shortName:String
-    let remoteID:Int
+    let smallIconURLString:String?
+    let largeIconURLString:String?
+    let aboutCourse:String?
+    let courseDescription:String?
 }
 
 extension _Course : JSONDecodable
 {
-    static func create(remoteID:Int)(name:String)(shortName:String) -> _Course
-    {
-        return _Course(name: name, shortName:shortName, remoteID: remoteID)
-    }
-    
     static func decodeObjects(json: JSON) -> [_Course?]?
     {
         let logger = Swell.getLogger("_Course:JSONDecodable")
@@ -44,10 +43,26 @@ extension _Course : JSONDecodable
     {
         return _JSONParse(json) >>-
             {   data in
-                self.create
+                _Course.create
                     <^> data <| "id"
                     <*> data <| "name"
                     <*> data <| "shortName"
+//                    <*> data <|* "largeIcon"
+//                    <*> data <|* "smallIcon"
+//                    <*> data <|* "shortDescription"
+//                    <*> data <|* "aboutTheCourse"
             }
+    }
+    
+    static func create(remoteID:Int)
+        (name:String)
+        (shortName:String)
+//        (largeIcon:String?)
+//        (smallIcon:String?)
+//        (courseDescription:String?)
+//        (aboutTheCourse:String?)
+        -> _Course
+    {
+        return _Course(remoteID: remoteID, name: name, shortName:shortName, smallIconURLString:nil, largeIconURLString:nil, aboutCourse:nil, courseDescription:nil)
     }
 }

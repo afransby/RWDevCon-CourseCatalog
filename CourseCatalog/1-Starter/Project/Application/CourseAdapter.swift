@@ -11,9 +11,6 @@ import Swell
 
 class CourseAdapter
 {
-//    var progress : Float = 0
-//    private var index : Int = 0
-//    private var total : Float = 0
     private let logger = Swell.getLogger("CourseAdapter")
     let stack : CoreDataStack
     init(stack:CoreDataStack)
@@ -24,7 +21,6 @@ class CourseAdapter
     
     func adapt(courses:[_Course]) -> [Course]
     {
-//        total = Float(courses.count)
         let existingCourseFilter = NSPredicate(format: "remoteID in %@", courses.map { $0.remoteID })
         let existingCourses = stack.find(Course.self, predicate: existingCourseFilter)
         
@@ -36,7 +32,7 @@ class CourseAdapter
     
     func adapt(course:_Course) -> Course
     {
-        let existingCourseFilter = NSPredicate(format: "remoteID = %@", course.remoteID)
+        let existingCourseFilter = NSPredicate(format: "remoteID = %d", course.remoteID)
         let existingCourse = stack.find(Course.self, predicate: existingCourseFilter)?.first
         
         return adapt(course: existingCourse, from:course)
@@ -73,17 +69,17 @@ class CourseAdapter
     
     private func adapt(course:Course? = nil, from rawCourse:_Course) -> Course
     {
-        var adapted : Course = course ?? stack.createInBackground(Course.self)!
+        var adapted : Course = course ?? stack.create(Course.self)!
 
         let context = stack.backgroundContext
         context.performBlockAndWait {
             adapted.remoteID = rawCourse.remoteID
             adapted.name = rawCourse.name
             adapted.shortName = rawCourse.shortName
+            //TODO: discuss difference between process pending change and did save
             context.processPendingChanges()
         }
 
-//        NSThread.sleepForTimeInterval(0.1)
         return adapted
     }
 }

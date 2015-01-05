@@ -26,8 +26,12 @@ extension CoreDataStack
         request.predicate = predicate
         request.sortDescriptors = orderedBy
         
+        var result : [T]?
         var error : NSError?
-        let result = mainContext.executeFetchRequest(request, error: &error) as? [T]
+        let context = mainContext
+        context.performBlockAndWait {
+            result = context.executeFetchRequest(request, error: &error) as? [T]
+        }
         if result == nil
         {
             logger.error("[find] \(error)")
@@ -66,13 +70,13 @@ extension CoreDataStack
     
     public func create<T : NSManagedObject>(type:T.Type) -> T?
     {
-        return create(type, inContext: mainContext)
+        return create(type, inContext: backgroundContext)
     }
-    
-    func createInBackground<T : NSManagedObject>(type:T.Type) -> T?
-    {
-        return create(type, inContext: self.backgroundContext)
-    }
+//    
+//    func createInBackground<T : NSManagedObject>(type:T.Type) -> T?
+//    {
+//        return create(type, inContext: self.backgroundContext)
+//    }
     
     func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T?
     {

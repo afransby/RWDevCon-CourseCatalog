@@ -19,6 +19,7 @@ class CourseViewController: UIViewController {
     var course: Course? {
         didSet {
             if let course = course {
+                courseDataSource = CourseDataSource(course:course)
                 courseDataSource.updateCourseDetails(configureView)
             }
         }

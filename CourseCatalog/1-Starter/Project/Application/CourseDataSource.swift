@@ -16,31 +16,40 @@ class CourseDataSource: NSObject {
     init(course:Course) {
 
         var error : NSError?
-        self.course = stack.mainContext.existingObjectWithID(course.objectID, error: &error) as Course?
+        self.course = course //stack.mainContext.existingObjectWithID(course.objectID, error: &error) as Course?
 
         super.init()
     }
 
     func updateCourseDetails(completion:(Course?) -> ()) {
-        completion(nil)
-//        requestCourse(course?.remoteID) { result in
-//        }
-//            println(result)
-//            switch result {
-//            case .Value(let value):
-//                completion?(value())
-//            case .Error:
-//                completion?(nil)
-//            }
-//        }
+        let courseID = course?.remoteID.integerValue ?? 0
+        let context = stack.mainContext
+        requestCourse(courseID) { result in
+            context.performBlock {
+                completion(result.value)
+            }
+        }
     }
-}
 
-func requestCourse(id:Int, completion: (Result<Course>) -> ()) {
-    let baseURL = NSURL(string: "https://api.coursera.org/api/catalog.v1/courses")!
-    let parseJSON = { $0 >>- _Course.decode >>- CourseAdapter(stack: CoreDataStack()).adapt }
-    let courseResource = jsonResource("courses", .GET, [:], parseJSON)
-    apiRequest({ _ in }, baseURL, courseResource, defaultFailureHandler) { course in
-        completion(Result(course))
+    func parseJSON(json:JSON) -> Course?
+    {
+        return json
+                >>- _Course.decodeObjects
+                >>- mapSome
+                >>- { $0.first }
+                >>- CourseAdapter(stack: stack).adapt
+    }
+    
+    func requestCourse(id:Int, completion: (Result<Course>) -> ()) {
+        let baseURL = NSURL(string: "https://api.coursera.org/api/catalog.v1/courses")!
+        let queryString = "id=\(id)&fields=largeIcon,smallIcon,shortDescription,aboutTheCourse"
+
+        let courseResource = jsonResource("courses", .GET, [:], parseJSON)
+        let modifyRequest = { (urlRequest : NSMutableURLRequest) in
+            urlRequest.URL = NSURL(string:baseURL.absoluteString! + "?" + queryString)
+        }
+        apiRequest(modifyRequest, baseURL, courseResource, defaultFailureHandler) { course in
+            completion(Result(course))
+        }
     }
 }
