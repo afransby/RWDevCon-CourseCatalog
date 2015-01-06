@@ -1,24 +1,28 @@
-##Core Data Threading Demo Instructions
----
-In this demo, you will be adding some import functionality to download more data for the Course Catalog. Along the way, we will be adding support for downloading and importing in the background, as well as looking at how to unit test our Core Data importing code.
 
----
+#Core Data Threading Demo Instructions
 
-## Open the CourseCatalog.xcworkspace file
-You'll see that this project uses Argo and Swell, and they are missing. We need to download those dependencies. (TODO: add these into the repo/solution if hotel interwebs are bad)
+The goal of these steps is to demonstrate how to take a main thread based Core Data app and make all import and saving operations occur on a background queue.
 
-## Setup Project
-This project uses the lightweight dependency management tool Carthage. A Cartfile with the proper dependencies is 
+* Construct CoreData Stack
 
-	carthage bootstrap
+	* Add MOC
+	* Add PSC
+	* Add StoreURL
+		- Add IBInspectibile
+	* Add Course CoreData Objects
 
-##Add Data Source Object to Storyboard
+* Add Catalog DataSource to Storyboard
+* Add Catalog TableView DataSource to Storyboard
 
-##Add TableView Data Source Object to Storyboard	
 
-## Add data
-Launch the data importing from local sample data
+* --Importing data is now on main thread
+* Show importing slowness
+ * Slow UI
+ * Instruments/Profiling
+* Add backgroundContext to stack
+* Modify importer to use background context when creating new Course CoreData objects
+* --Importing data is now on background thread
+* Add ConcurrencyDebug flag in launch flags
+* Add performBlock/performBlockAndWait around critical places
 
-## make data import on background thread
 
-## Make data not re-import on every launch

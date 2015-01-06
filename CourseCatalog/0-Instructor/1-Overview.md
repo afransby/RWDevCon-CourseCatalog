@@ -1,35 +1,43 @@
+# Core Data + Threads
 
-* Setup Starter Project
-* Build/Run. See no data
-* Quickly Construct CoreData Stack
-* Add Catalog DataSource to Storyboard
-* Add Catalog TableView DataSource to Storyboard
-* Add JSON parsing
-* Add unit tests
-* Add Course Object Adapter
-* Add Course CoreData Objects
-* Make data importing functional (side note)
-* --Importing data is now on main thread
-* Show importing slowness
- * Slow UI
- * Instruments/Profiling
-* Add backgroundContext to stack
-* Modify importer to use background context when creating new Course CoreData objects
-* --Importing data is now on background thread
+---
+
+# Core Data is great for persisting an object graph to disk for late use
+
+---
+
+# Core Data is not great at making it easy to perform those saves off the main thread so your UI maintains responsiveness
+
+---
+
+# Threading is Hard
+
+---
+
+# Core Data is Hard
+
+---
+# Core Data + Threading = Mindsplode
+
+---
+# A Basic Core Data Stack
+
+---
+
+# Adding Threading Support
+
+* Simply Adding a second MOC
+
+---
+
+#Different background MOC configurations 
+
+---
+
+#Parent/Child contexts
+
+- background context (private)
+- UI context (main)
+- worker context (private)
 
 
-**Lab**:
-
-* Data isn't saved to store
- * Add recursive save call
-* Show course detail view
- * Have single course detail download/update in background using the CoreDataStack object (without {the evil} singleton pattern!)
-
-
-
-**Challenge**:
-
-* push/pop detail view to show how to launch a single update command without re-requesting the same information all the time
-
-
-* Can you make a progress bar and show the import process updating?
