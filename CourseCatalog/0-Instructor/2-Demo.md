@@ -111,18 +111,87 @@ Open CoreDataStack+Additions.swift
 
 - Courses are now importing using the main thread
 
-##6) Import on Background Queue
+##6) Add Background Context
 
----
 
-* --Importing data is now on main thread
-* Show importing slowness
- * Slow UI
- * Instruments/Profiling
-* Add backgroundContext to stack
-* Modify importer to use background context when creating new Course CoreData objects
-* --Importing data is now on background thread
-* Add ConcurrencyDebug flag in launch flags
-* Add performBlock/performBlockAndWait around critical places
+* Open CoreDataStack.swift
+
+**Add lazy background Context property**
+
+    internal var backgroundContext : NSManagedObjectContext {
+        return savingContext
+    }
+
+	private lazy var savingContext : NSManagedObjectContext = {
+		let savingContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+		savingContext.persistentStoreCoordinator = self.coordinator
+		return savingContext
+	}()
+
+**Also, you need to change the mainContext a little**
+
+    private lazy var context : NSManagedObjectContext = {
+        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        context.parentContext = self.savingContext
+        return context
+    }()
+
+* open **CoreDataStack+Additions.swift**
+*Change the context to backgroundContext
+
+**For create**
+
+	public func create<T : NSManagedObject>(type:T.Type) -> T? {
+        return create(type, inContext: backgroundContext)
+    }
+    
+**For save**
+
+    public func save() {
+        saveUsing(Context: backgroundContext)
+    }
+    
+but we also need to push the changes to the store. In the saveUsing function, add
+
+    if let parentContext = context.parentContext {
+        self.saveUsing(Context: parentContext)
+    }
+    else {
+        logger.debug("Saved context successfully")
+    }
+
+
+
+##7) Set ConcurrencyDebug to find Queue violations
+
+* Open CourseCatalog scheme
+* Switch to Arguments tab
+* add new argument: **-com.apple.CoreData.ConcurrencyDebug 1**
+
+##8) Need to add *performBlock* and *performBlockAndWait*
+
+**In find, add**
+
+	context.performBlockAndWait {
+	}
+        
+**In create, add**
+
+	context.performBlockAndWait {
+	}
+	
+**In save, add**
+
+	context.performBlock {
+	}
+	
+**In adapt function, add**
+
+	context.performBlockAndWait {
+	}
+	
+## Build and Run
+* Importing and saving now happens on the background
+
 
 

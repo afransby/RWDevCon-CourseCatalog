@@ -112,7 +112,12 @@ extension CoreDataStack
                 }
                 else
                 {
-                    logger.debug("Saved context successfully")
+                    if let parentContext = context.parentContext {
+                        self.saveUsing(Context: parentContext)
+                    }
+                    else {
+                        logger.debug("Saved context successfully")
+                    }
                 }
             }
             else
