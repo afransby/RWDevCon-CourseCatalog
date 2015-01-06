@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6724" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -120,7 +120,6 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BAo-Nh-Yxu" id="hpb-Ep-u7H"/>
                                     <outlet property="delegate" destination="grP-gE-McP" id="uR7-wy-3p3"/>
                                 </connections>
                             </tableView>
@@ -134,31 +133,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Courses" id="9UU-Ic-f3Z">
-                        <barButtonItem key="rightBarButtonItem" title="Load Courses" id="hoo-ge-20m">
-                            <connections>
-                                <action selector="loadCourses" destination="8XW-tr-XtT" id="2Y2-gP-zGr"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Load Courses" id="hoo-ge-20m"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="dataSource" destination="8XW-tr-XtT" id="NAU-FS-xwv"/>
                         <outlet property="tableView" destination="yFt-qX-zxz" id="gnY-Yy-3zG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufL-kh-hBX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="eXH-Uw-p0P" customClass="CoreDataStack" customModule="CourseCatalog" customModuleProvider="target"/>
-                <customObject id="8XW-tr-XtT" customClass="CatalogDataSource" customModule="CourseCatalog" customModuleProvider="target">
-                    <connections>
-                        <outlet property="delegate" destination="BAo-Nh-Yxu" id="226-BN-BLw"/>
-                        <outlet property="stack" destination="eXH-Uw-p0P" id="Myo-HS-VZ9"/>
-                    </connections>
-                </customObject>
-                <customObject id="BAo-Nh-Yxu" customClass="CatalogTableViewDataSource" customModule="CourseCatalog">
-                    <connections>
-                        <outlet property="catalogDataSource" destination="8XW-tr-XtT" id="ZOy-Jp-QuE"/>
-                        <outlet property="tableView" destination="yFt-qX-zxz" id="zsU-1s-cmc"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="685" y="-622"/>
         </scene>

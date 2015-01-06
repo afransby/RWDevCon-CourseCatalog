@@ -25,7 +25,16 @@ extension CoreDataStack
     }
     
     func find<T : NSManagedObject>(type:T.Type, orderedBy: [NSSortDescriptor]? = nil, predicate:NSPredicate? = nil, inContext context:NSManagedObjectContext) -> [T]? {
-        return nil
+        let request = NSFetchRequest(entityName: entityNameFromType(type))
+        request.predicate = predicate
+        request.sortDescriptors = orderedBy
+        
+        var error : NSError?
+        let result = context.executeFetchRequest(request, error: &error) as? [T]
+        if result == nil {
+            logger.error("[find] \(error)")
+        }
+        return result
     }
     
     public func create<T : NSManagedObject>(type:T.Type) -> T? {
@@ -33,14 +42,15 @@ extension CoreDataStack
     }
     
     func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T? {
-        return nil
+        let entityName = entityNameFromType(type)
+        let entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as NSManagedObject
+        return cast(entity)
     }
     
     public func save() {
         saveUsing(Context: mainContext)
     }
     
-    //TODO: Write save
     func saveUsing(Context context:NSManagedObjectContext) {
 
     }
