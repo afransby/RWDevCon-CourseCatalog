@@ -14,7 +14,7 @@ public class CoreDataStack : NSObject
 {
     internal lazy var logger : Logger = Swell.getLogger("CoreDataStack")
     
-    @IBInspectable var storeName : String?
+    var storeName : String?
     private lazy var storeURL : NSURL? = {
         let searchPaths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)
         let searchPath : String = searchPaths.first? as String
@@ -56,41 +56,13 @@ public class CoreDataStack : NSObject
         return context
     }
 
-    internal var backgroundContext : NSManagedObjectContext {
-        return savingContext
-    }
-
     private lazy var context : NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        context.persistentStoreCoordinator = self.coordinator
-        return context
-    }()
-
-    private lazy var savingContext : NSManagedObjectContext = {
-        let savingContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-        savingContext.persistentStoreCoordinator = self.coordinator
-        self.watchSavesToContext(savingContext)
-        return savingContext
+        return NSManagedObjectContext()
     }()
     
-    private func watchSavesToContext(context:NSManagedObjectContext)
-    {
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        
-        let selector = Selector("mergeChanges:")
-        notificationCenter.addObserver(self, selector: selector, name: NSManagedObjectContextDidSaveNotification, object: context)
-    }
-    
-    internal func mergeChanges(notification:NSNotification) {
-        let context = mainContext
-        logger.debug("Merging changes...")
-        context.performBlock {
-            context.mergeChangesFromContextDidSaveNotification(notification)
-        }
-    }
-
     private lazy var coordinator : NSPersistentStoreCoordinator = {
         let coordinator : NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
+        self.logger.debug("Loaded Coordinator: \(coordinator)")
         self.configureCoordinator(coordinator)
         return coordinator
     }()
@@ -106,7 +78,6 @@ public class CoreDataStack : NSObject
             store = coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: &error)
         }
 
-        logger.debug("Loaded Coordinator: \(coordinator)")
         if let store = store
         {
             logger.debug("-- Added Store: \(store)")

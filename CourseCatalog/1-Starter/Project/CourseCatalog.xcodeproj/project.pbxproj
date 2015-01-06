@@ -95,7 +95,6 @@
 		C782E89F1A341AA6006A9DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C782E8A11A341AA6006A9DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C782E8A21A341AA6006A9DDE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C782E8AB1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseraCatalogCommandHandler.swift; sourceTree = "<group>"; };
 		C782E8C21A34E1E6006A9DDE /* Courses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Courses.json; sourceTree = "<group>"; };
 		C782E8C41A34E1E6006A9DDE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C782E8CB1A34E24C006A9DDE /* CatalogDataSourceSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogDataSourceSpecs.swift; sourceTree = "<group>"; };
@@ -158,7 +157,6 @@
 				C7B366EE1A35007E008E6C10 /* Views */,
 				C7B366F11A3500A9008E6C10 /* Controllers */,
 				C7B366EF1A35008B008E6C10 /* Models */,
-				C782E8AB1A34217E006A9DDE /* CourseraCatalogCommandHandler.swift */,
 				C7B366F01A350097008E6C10 /* Helpers */,
 				C782E89E1A341AA6006A9DDE /* LaunchScreen.xib */,
 				C782E8A01A341AA6006A9DDE /* Main.storyboard */,
