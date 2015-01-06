@@ -107,10 +107,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yFt-qX-zxz">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <progressView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="UAl-yD-eIK">
-                                    <rect key="frame" x="0.0" y="-2" width="600" height="2"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </progressView>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="qLs-lA-lLb">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -154,7 +150,6 @@
                 <customObject id="8XW-tr-XtT" customClass="CatalogDataSource" customModule="CourseCatalog" customModuleProvider="target">
                     <connections>
                         <outlet property="delegate" destination="BAo-Nh-Yxu" id="226-BN-BLw"/>
-                        <outlet property="progressBar" destination="UAl-yD-eIK" id="8Cd-vE-2rs"/>
                         <outlet property="stack" destination="eXH-Uw-p0P" id="Myo-HS-VZ9"/>
                     </connections>
                 </customObject>
