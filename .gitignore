@@ -1,6 +1,7 @@
 # Xcode
 #
-build/
+#build/
+**/Carthage/Checkouts/**
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -17,4 +18,4 @@ DerivedData
 *.ipa
 *.xcuserstate
 
-Carthage
+
