@@ -17,7 +17,7 @@ import Swell
     optional func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
 }
 
-@objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
+class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
 {
     @IBOutlet weak var delegate : CatalogDataSourceDelegate?
     @IBOutlet private var stack : CoreDataStack!
