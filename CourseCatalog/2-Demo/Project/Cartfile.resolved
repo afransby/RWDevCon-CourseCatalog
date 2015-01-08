@@ -1,4 +1,4 @@
-github "thoughtbot/Argo" "v0.2.1"
+github "thoughtbot/Argo" "v0.2.2"
 github "Quick/Nimble" "v0.2.0"
 github "Quick/Quick" "v0.2.2"
 github "casademora/Swell" "v0.1"
