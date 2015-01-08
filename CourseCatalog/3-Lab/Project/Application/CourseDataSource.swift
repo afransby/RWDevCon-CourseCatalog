@@ -10,19 +10,11 @@ import CoreData
 import Argo
 
 class CourseDataSource: NSObject {
-    private let stack : CoreDataStack = CoreDataStack()
     private var course : Course?
     
     init(course:Course) {
-
-        var error : NSError?
         self.course = course
 
         super.init()
     }
-
-    func updateCourseDetails(completion:(Course?) -> ()) {
-        completion(nil)
-    }
-
 }
