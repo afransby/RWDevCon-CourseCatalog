@@ -26,7 +26,7 @@ class CourseDataSource: NSObject {
         let context = stack.mainContext
         requestCourse(courseID) { result in
             context.performBlock {
-                completion(result.value)
+                completion(result)
             }
         }
     }
@@ -40,7 +40,7 @@ class CourseDataSource: NSObject {
                 >>- CourseAdapter(stack: stack).adapt
     }
     
-    func requestCourse(id:Int, completion: (Result<Course>) -> ()) {
+    func requestCourse(id:Int, completion: (Course) -> ()) {
         let baseURL = NSURL(string: "https://api.coursera.org/api/catalog.v1/courses")!
         let queryString = "id=\(id)&fields=largeIcon,smallIcon,shortDescription,aboutTheCourse"
 
