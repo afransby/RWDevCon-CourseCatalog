@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/Nimble-Swift.h</key>
 		<data>
-		Q5dg34HweXUK7F9ywfXez2K93yk=
+		s3gVUzdTYNQATZBq7nflJ1kmOCQ=
 		</data>
 		<key>Headers/Nimble.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		wauVJgm8wdSzAPow7zAE3/ieSsI=
+		qsAt08o5Bv/0kjtnCs1NX/r4iHM=
 		</data>
 		<key>Modules/Nimble.swiftmodule/arm.swiftdoc</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/Nimble.swiftmodule/arm.swiftmodule</key>
 		<data>
-		BizS7H+uQnjE3DBKPzjXrvoTq2k=
+		8c4+iIatDIhu76ydnU5M15UBSAQ=
 		</data>
 		<key>Modules/Nimble.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/Nimble.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		3nY5OFKl6JlA//emSMetclZyGgw=
+		eTGIvkZKDhjgazpuM8sD3Op2WJI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -57,7 +57,7 @@
 		</data>
 		<key>Headers/Nimble-Swift.h</key>
 		<data>
-		Q5dg34HweXUK7F9ywfXez2K93yk=
+		s3gVUzdTYNQATZBq7nflJ1kmOCQ=
 		</data>
 		<key>Headers/Nimble.h</key>
 		<data>
@@ -69,7 +69,7 @@
 		</data>
 		<key>Modules/Nimble.swiftmodule/arm.swiftmodule</key>
 		<data>
-		BizS7H+uQnjE3DBKPzjXrvoTq2k=
+		8c4+iIatDIhu76ydnU5M15UBSAQ=
 		</data>
 		<key>Modules/Nimble.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -77,7 +77,7 @@
 		</data>
 		<key>Modules/Nimble.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		3nY5OFKl6JlA//emSMetclZyGgw=
+		eTGIvkZKDhjgazpuM8sD3Op2WJI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
