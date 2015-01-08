@@ -20,34 +20,7 @@ Open CoreDataStack+Additions.swift
         return context
     }
     
-##2) Write Create, Find and Save methods
-
-**Create**
-
-    func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T?
-    {
-		let entityName = entityNameFromType(type)
-		let entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as NSManagedObject
-		return cast(entity)
-    }
-        
-**Find**
-
-    func find<T : NSManagedObject>(type:T.Type, orderedBy: [NSSortDescriptor]? = nil, predicate:NSPredicate? = nil, inContext context:NSManagedObjectContext) -> [T]?
-    {
-        let request = NSFetchRequest(entityName: entityNameFromType(type))
-        request.predicate = predicate
-        request.sortDescriptors = orderedBy
-        
-        var error : NSError?
-        let result = context.executeFetchRequest(request, error: &error) as? [T]
-        if result == nil {
-            logger.error("[find] \(error)")
-        }
-        return result
-    }    
-
-**Save**
+##2) Fill in Save method
 
     func saveUsing(Context context:NSManagedObjectContext)
     {
@@ -94,11 +67,22 @@ Open CoreDataStack+Additions.swift
 
 * Right click on the **CourseListViewController**
 * Connect the dataSource property to the **CatalogDataSource**
+
+---
+
 * Right click on **CatalogDataSource**
 * Connect the stack property to the **CoreDataStack** property
+* In the CatalogDataSource class, change the type of the delegate property to AnyObject
 * Connect the delegate property to the **CatalogTableViewDataSource** property
+* Back in the CatalogDataSource class, change the type back to the **CatalogDataSourceDelegate** protocol
+
+---
+
 * Right click on the *CatalogTableViewDataSource** property
 * connect the catalogDataSource property to the **CatalogDataSource** object
+
+---
+
 * Right click on the UITableView in *CourseListViewController*
 * connect the dataSource property to the **CatalogTableViewDataSource** object
 
