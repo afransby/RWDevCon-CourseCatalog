@@ -161,3 +161,6 @@ In CatalogDataSource.swift
         saveUsing(Context: backgroundContext)
     }
     
+##8) And that's all
+
+These are the basic steps needed to get threading working in your Core Data apps
