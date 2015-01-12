@@ -105,6 +105,7 @@ In CatalogDataSource.swift
 
 	let importer = CourseImporter(stack: stack)
     importer.importJSONDataInResourceNamed("Courses.json")
+    stack.save()
     
 ##5) Build and Run
 

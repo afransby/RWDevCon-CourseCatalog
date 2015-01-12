@@ -120,6 +120,7 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
+                                    <outlet property="dataSource" destination="0HR-eR-5U6" id="hfs-Hk-Ayv"/>
                                     <outlet property="delegate" destination="grP-gE-McP" id="uR7-wy-3p3"/>
                                 </connections>
                             </tableView>
@@ -133,13 +134,31 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Courses" id="9UU-Ic-f3Z">
-                        <barButtonItem key="rightBarButtonItem" title="Load Courses" id="hoo-ge-20m"/>
+                        <barButtonItem key="rightBarButtonItem" title="Load Courses" id="hoo-ge-20m">
+                            <connections>
+                                <action selector="loadCourses" destination="Cvw-EI-7IP" id="65a-YR-vgc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="dataSource" destination="Cvw-EI-7IP" id="vML-GU-WVp"/>
                         <outlet property="tableView" destination="yFt-qX-zxz" id="gnY-Yy-3zG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufL-kh-hBX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="Cvw-EI-7IP" customClass="CatalogDataSource" customModule="CourseCatalog" customModuleProvider="target">
+                    <connections>
+                        <outlet property="delegate" destination="0HR-eR-5U6" id="Cl3-Wy-rGQ"/>
+                        <outlet property="stack" destination="aBQ-78-ZrN" id="MrQ-Mo-j2e"/>
+                    </connections>
+                </customObject>
+                <customObject id="0HR-eR-5U6" customClass="CatalogTableViewDataSource" customModule="CourseCatalog" customModuleProvider="target">
+                    <connections>
+                        <outlet property="catalogDataSource" destination="Cvw-EI-7IP" id="7HQ-oe-3Cz"/>
+                        <outlet property="tableView" destination="yFt-qX-zxz" id="P0F-wc-fFH"/>
+                    </connections>
+                </customObject>
+                <customObject id="aBQ-78-ZrN" customClass="CoreDataStack" customModule="CourseCatalog" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="685" y="-622"/>
         </scene>
