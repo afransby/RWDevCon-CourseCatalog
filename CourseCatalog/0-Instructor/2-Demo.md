@@ -3,14 +3,24 @@
 
 The goal of these steps is to demonstrate how to take a main thread based Core Data app and make all import and saving operations occur on a background queue.
 
+# 0) Setup Project
+In your course materials, copy the contents of the files in 1-Starter and paste them somewhere easy, like your Desktop
+
+* Open CourseCatalog.xcproject
+* Build and Run. You should see the app, a simple table view with a Load Courses button at the top.
+* Quick overview of project
+ * Simple storyboard
+ * CoreDataStack object
+ * CoreDataStack+Additions
+
 # 1) Construct CoreData Stack
 Open CoreDataStack+Additions.swift
 
-**Add NSManagedObjectContext**
+**Setup the NSManagedObjectContext**
  
 	private lazy var context : NSManagedObjectContext = {
        	let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-		context.persistentStoreCoordinator = self.coordinator
+		context.persistentStoreCoordinator = self.coordinator //<--- uncomment this line
 		return context
 	}()
 
@@ -41,7 +51,7 @@ Open CoreDataStack+Additions.swift
         }
     }
     
-	* Add Course CoreData Objects
+* Quickly explain logger variable
 
 ##3) Add objects to main.storyboard
 
@@ -88,16 +98,22 @@ Open CoreDataStack+Additions.swift
 
 ##4) Load Courses
 
+* Open Storyboard
+* Connect *Load Courses* button to **loadCourses** action on **CatalogDataSource**
+
+In CatalogDataSource.swift
+
 	let importer = CourseImporter(stack: stack)
     importer.importJSONDataInResourceNamed("Courses.json")
     
 ##5) Build and Run
 
+- Press Load Courses button
 - Courses are now importing using the main thread
 
 ##6) Add Background Context
 
-
+* Setting up using NSNotifications
 * Open CoreDataStack.swift
 
 **Add lazy background Context property**
@@ -112,16 +128,26 @@ Open CoreDataStack+Additions.swift
 		return savingContext
 	}()
 
-**Also, you need to change the mainContext a little**
+##7) Set up Notifications
 
-    private lazy var context : NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        context.parentContext = self.savingContext
-        return context
-    }()
+* open CoreDataStack.swift 
+* add helper function in **NSManagedObjectContext** extension to setup watching for notifications
+
+---
+ 
+	extension NSManagedObjectContext {
+    	private func watchSavesToContext(context:NSManagedObjectContext)
+	    {
+    	    let notificationCenter = NSNotificationCenter.defaultCenter()
+        
+        	let selector = Selector("mergeChangesFromContextDidSaveNotification:")
+	        notificationCenter.addObserver(self, selector: selector, name: NSManagedObjectContextDidSaveNotification, object: context)
+    	}
+	}
+
+##7) Start using backgroundContext
 
 * open **CoreDataStack+Additions.swift**
-*Change the context to backgroundContext
 
 **For create**
 
@@ -135,47 +161,3 @@ Open CoreDataStack+Additions.swift
         saveUsing(Context: backgroundContext)
     }
     
-but we also need to push the changes to the store. In the saveUsing function, add
-
-    if let parentContext = context.parentContext {
-        self.saveUsing(Context: parentContext)
-    }
-    else {
-        logger.debug("Saved context successfully")
-    }
-
-
-
-##7) Set ConcurrencyDebug to find Queue violations
-
-* Open CourseCatalog scheme
-* Switch to Arguments tab
-* add new argument: **-com.apple.CoreData.ConcurrencyDebug 1**
-
-##8) Need to add *performBlock* and *performBlockAndWait*
-
-**In find, add**
-
-	context.performBlockAndWait {
-	}
-        
-**In create, add**
-
-	context.performBlockAndWait {
-	}
-	
-**In save, add**
-
-	context.performBlock {
-	}
-	
-**In adapt function, add**
-
-	context.performBlockAndWait {
-	}
-	
-## Build and Run
-* Importing and saving now happens on the background
-
-
-
