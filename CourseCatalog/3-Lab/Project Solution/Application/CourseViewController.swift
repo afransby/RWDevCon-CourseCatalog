@@ -15,11 +15,5 @@ class CourseViewController: UIViewController {
   @IBOutlet weak var courseImageView: UIImageView!
   
   var course: Course?
-  
-  func configureView(course:Course?) {
-    courseNameLabel?.text = course?.shortName
-    courseDescriptionLabel?.text = course?.name
-  }
-  
 }
 

@@ -17,8 +17,9 @@ import Swell
   optional func dataSourceDidRemoveObject(dataSource:CatalogDataSource, atIndexPath indexPath:NSIndexPath)
 }
 
-class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
+@objc class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
 {
+  @IBOutlet var progressBar : UIProgressView!
   @IBOutlet weak var delegate : CatalogDataSourceDelegate?
   @IBOutlet private var stack : CoreDataStack!
   private let logger = Swell.getLogger("CatalogDataSource")
@@ -32,17 +33,52 @@ class CatalogDataSource : NSObject, NSFetchedResultsControllerDelegate
     
     var error : NSError?
     let success = controller.performFetch(&error)
-    if !success {
-      self.logger.error("Error fetching courses: \(error)")
-    } else {
-      self.logger.debug("Fetched \(controller.fetchedObjects?.count)")
+    if !success
+    {
+      println("Error fetching courses: \(error)")
+    }
+    else
+    {
+      println("Fetched \(controller.fetchedObjects?.count)")
     }
     
     return controller
     }()
   
-  @IBAction func loadCourses() {
-    
+  //    override func awakeFromNib() {
+  //        super.awakeFromNib()
+  //        loadCourses()
+  //    }
+  
+  private var catalogDataSourceObservingContext = "loadCourses"
+  @IBAction func loadCourses()
+  {
+    //        if !stack.exists(Course.self)
+    //        {
+    logger.debug("Loading Catalog Data Source")
+    let importer = CourseImporter(stack: stack)
+    let options : NSKeyValueObservingOptions = .New | .Initial
+    importer.addObserver(self, forKeyPath: "progress", options: options, context: &catalogDataSourceObservingContext)
+    importer.importJSONDataInResourceNamed("Courses.json")
+    importer.removeObserver(self, forKeyPath: "progress", context: &catalogDataSourceObservingContext)
+    stack.saveUsing(Context: stack.backgroundContext)
+    //        }
+  }
+  
+  override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
+  {
+    if context == &catalogDataSourceObservingContext
+    {
+      if keyPath == "progress"
+      {
+        let newValue = change[NSKeyValueChangeNewKey] as? Float
+        self.progressBar?.progress = Float(newValue ?? 0)
+      }
+    }
+    else
+    {
+      super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+    }
   }
   
   func courseAtIndexPath(indexPath:NSIndexPath) -> Course

@@ -38,7 +38,7 @@ extension CoreDataStack
   }
   
   public func create<T : NSManagedObject>(type:T.Type) -> T? {
-    return create(type, inContext: mainContext)
+    return create(type, inContext: backgroundContext)
   }
   
   func create<T : NSManagedObject>(type:T.Type, inContext context:NSManagedObjectContext) -> T? {
@@ -48,10 +48,16 @@ extension CoreDataStack
   }
   
   public func save() {
-    saveUsing(Context: mainContext)
+    saveUsing(Context: backgroundContext)
   }
   
   func saveUsing(Context context:NSManagedObjectContext) {
-    
+    if context.hasChanges {
+      var error :NSError?
+      let success = context.save(&error)
+      if !success {
+        logger.error("Could not save \(error)")
+      }
+    }
   }
 }

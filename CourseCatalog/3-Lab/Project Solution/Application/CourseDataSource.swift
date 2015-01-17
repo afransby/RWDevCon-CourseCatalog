@@ -10,12 +10,9 @@ import CoreData
 import Argo
 
 class CourseDataSource: NSObject {
-  private let stack : CoreDataStack = CoreDataStack(storeName: "catalog.sqlite")
   private var course : Course?
   
   init(course:Course) {
-    
-    var error : NSError?
     self.course = course
     
     super.init()

@@ -26,7 +26,7 @@ public class CoreDataStack : NSObject
       return storeURL.URLByAppendingPathComponent(storeName)
     }
     return nil
-    }()
+  }()
   
   func description() -> String
   {
@@ -58,9 +58,21 @@ public class CoreDataStack : NSObject
   
   private lazy var context : NSManagedObjectContext = {
     let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-    //        context.persistentStoreCoordinator = self.coordinator
+    context.persistentStoreCoordinator = self.coordinator
+    context.watchSavesToContext(self.backgroundContext)
     return context
     }()
+  
+  internal var backgroundContext : NSManagedObjectContext {
+    return savingContext
+  }
+  
+  private lazy var savingContext : NSManagedObjectContext = {
+    let savingContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+    savingContext.persistentStoreCoordinator = self.coordinator
+    return savingContext
+    }()
+  
   
   private lazy var coordinator : NSPersistentStoreCoordinator = {
     let coordinator : NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
@@ -100,3 +112,12 @@ public class CoreDataStack : NSObject
     }()
 }
 
+extension NSManagedObjectContext {
+  private func watchSavesToContext(context:NSManagedObjectContext)
+  {
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+    
+    let selector = Selector("mergeChangesFromContextDidSaveNotification:")
+    notificationCenter.addObserver(self, selector: selector, name: NSManagedObjectContextDidSaveNotification, object: context)
+  }
+}

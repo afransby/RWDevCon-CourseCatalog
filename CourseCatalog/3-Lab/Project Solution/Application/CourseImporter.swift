@@ -20,7 +20,7 @@ public class CourseImporter: NSObject
   
   let stack : CoreDataStack
   
-  public init(stack:CoreDataStack = CoreDataStack()) {
+  public init(stack:CoreDataStack = CoreDataStack(storeName: "catalog.sqlite")) {
     self.stack = stack
   }
   
@@ -61,9 +61,50 @@ public class CourseImporter: NSObject
     let results = dataObject
       >>- _Course.decodeObjects
       >>- mapSome
-      >>- CourseAdapter(stack: self.stack).adapt
+      >>- adaptCourses
     
     logger.debug("Imported \(results?.count) courses")
     return results ?? []
+  }
+  
+  private var adaptCoursesTotal : Float = 0
+  private var adaptedCoursesCount = 0
+  //TODO: Add steps for watching import progress
+  func adaptCourses(courses:[_Course]) -> [Course]
+  {
+    let adapter = CourseAdapter(stack: stack)
+    adaptCoursesTotal = Float(courses.count)
+    logger.debug("Start Adapting \(adaptCoursesTotal) _Course objects")
+    
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+    let context = stack.backgroundContext
+    var results : [Course] = []
+    watchNotificationsNamed(NSManagedObjectContextObjectsDidChangeNotification, fromObject: context, usingSelector: Selector("contextDidChange:"))
+      {
+        results = adapter.adapt(courses)
+    }
+    return results
+  }
+  
+  func watchNotificationsNamed(notificationName:String, fromObject object:AnyObject? = nil, usingSelector selector:Selector, inScope scope:() -> ())
+  {
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+    let watcher = self
+    notificationCenter.addObserver(watcher, selector: selector, name: notificationName, object: object)
+    scope()
+    notificationCenter.removeObserver(watcher, name: notificationName, object: object)
+  }
+  
+  func contextDidChange(notification:NSNotification)
+  {
+    let insertedObjects = notification.insertedObjects
+    adaptedCoursesCount += insertedObjects.count
+    progress = Float(adaptedCoursesCount) / adaptCoursesTotal
+  }
+}
+
+extension NSNotification {
+  var insertedObjects : NSSet {
+    return userInfo?[NSInsertedObjectsKey] as? NSSet ?? NSSet()
   }
 }

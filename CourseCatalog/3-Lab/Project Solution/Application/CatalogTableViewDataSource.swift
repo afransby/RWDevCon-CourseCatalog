@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class CatalogTableViewDataSource : NSObject, CatalogDataSourceDelegate, UITableViewDataSource
+@objc class CatalogTableViewDataSource : NSObject, CatalogDataSourceDelegate, UITableViewDataSource
 {
   @IBOutlet var catalogDataSource : CatalogDataSource!
   @IBOutlet var tableView : UITableView!

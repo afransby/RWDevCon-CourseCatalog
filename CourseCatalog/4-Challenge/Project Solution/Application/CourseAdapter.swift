@@ -71,9 +71,14 @@ class CourseAdapter
   {
     var adapted : Course = course ?? stack.create(Course.self)!
     
-    adapted.remoteID = rawCourse.remoteID
-    adapted.name = rawCourse.name
-    adapted.shortName = rawCourse.shortName
+    let context = stack.backgroundContext
+    context.performBlockAndWait {
+      adapted.remoteID = rawCourse.remoteID
+      adapted.name = rawCourse.name
+      adapted.shortName = rawCourse.shortName
+      //TODO: discuss difference between process pending change and did save
+      context.processPendingChanges()
+    }
     
     return adapted
   }
