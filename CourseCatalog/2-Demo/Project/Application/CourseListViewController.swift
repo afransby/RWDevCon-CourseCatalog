@@ -8,6 +8,7 @@
 
 import UIKit
 import Argo
+import Runes
 
 @objc class CourseListViewController: UIViewController, UITableViewDelegate
 {

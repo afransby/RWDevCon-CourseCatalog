@@ -8,6 +8,7 @@
 
 import CoreData
 import Argo
+import Runes
 
 class CourseDataSource: NSObject {
     private let stack : CoreDataStack = CoreDataStack(storeName: "catalog.sqlite")

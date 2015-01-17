@@ -18,6 +18,7 @@
 		C74F6B391A58AC9100B01E49 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73517E31A4A586500193CAE /* HelperFunctions.swift */; };
 		C74F6B3B1A58B57500B01E49 /* SampleCourse.json in Resources */ = {isa = PBXBuildFile; fileRef = C74F6B3A1A58B57500B01E49 /* SampleCourse.json */; };
 		C74F6B3D1A58B5DD00B01E49 /* CourseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F6B3C1A58B5DD00B01E49 /* CourseDataSource.swift */; };
+		C755ADDB1A6AFE1400441F13 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C755ADDA1A6AFE1400441F13 /* Runes.framework */; };
 		C76222FC1A521C3E009D2879 /* Argo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C73517D91A49D93F00193CAE /* Argo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C76222FD1A521C41009D2879 /* Swell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C73517DA1A49D93F00193CAE /* Swell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C76A6A9E1A357B3D001440C5 /* Courses.json in Resources */ = {isa = PBXBuildFile; fileRef = C782E8C21A34E1E6006A9DDE /* Courses.json */; };
@@ -87,6 +88,7 @@
 		C73517E31A4A586500193CAE /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		C74F6B3A1A58B57500B01E49 /* SampleCourse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleCourse.json; sourceTree = "<group>"; };
 		C74F6B3C1A58B5DD00B01E49 /* CourseDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDataSource.swift; sourceTree = "<group>"; };
+		C755ADDA1A6AFE1400441F13 /* Runes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Runes.framework; path = Carthage/Build/iOS/Runes.framework; sourceTree = SOURCE_ROOT; };
 		C782E86C1A3418DE006A9DDE /* CourseCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C782E8981A341AA6006A9DDE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C782E89A1A341AA6006A9DDE /* CatalogDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogDataSource.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C73517DB1A49D93F00193CAE /* Argo.framework in Frameworks */,
+				C755ADDB1A6AFE1400441F13 /* Runes.framework in Frameworks */,
 				C73517DC1A49D93F00193CAE /* Swell.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +171,7 @@
 		C782E89D1A341AA6006A9DDE /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				C755ADDA1A6AFE1400441F13 /* Runes.framework */,
 				C73517D91A49D93F00193CAE /* Argo.framework */,
 				C73517DA1A49D93F00193CAE /* Swell.framework */,
 				C782E8A21A341AA6006A9DDE /* Info.plist */,
