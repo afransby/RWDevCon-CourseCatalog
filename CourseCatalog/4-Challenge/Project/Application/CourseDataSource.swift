@@ -8,6 +8,7 @@
 
 import CoreData
 import Argo
+import Runes
 
 class CourseDataSource: NSObject {
     private let stack : CoreDataStack = CoreDataStack(storeName: "catalog.sqlite")
@@ -26,7 +27,7 @@ class CourseDataSource: NSObject {
         let context = stack.mainContext
         requestCourse(courseID) { result in
             context.performBlock {
-                completion(result)
+                completion(result.value!)
             }
         }
     }
@@ -40,7 +41,7 @@ class CourseDataSource: NSObject {
                 >>- CourseAdapter(stack: stack).adapt
     }
     
-    func requestCourse(id:Int, completion: (Course) -> ()) {
+    func requestCourse(id:Int, completion: (Result<Course>) -> ()) {
         let baseURL = NSURL(string: "https://api.coursera.org/api/catalog.v1/courses")!
         let queryString = "id=\(id)&fields=largeIcon,smallIcon,shortDescription,aboutTheCourse"
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import Argo
+import Runes
 
 public enum Method: String { // Bluntly stolen from Alamofire
     case OPTIONS = "OPTIONS"
