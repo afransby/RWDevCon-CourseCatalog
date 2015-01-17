@@ -8,6 +8,7 @@
 
 import UIKit
 import Argo
+import Runes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {

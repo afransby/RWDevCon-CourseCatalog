@@ -8,6 +8,7 @@
 
 import Foundation
 import Argo
+import Runes
 import Swell
 import CoreData
 
@@ -32,7 +33,6 @@ struct _Course
     {
         return _Course(remoteID: remoteID, name: name, shortName:shortName, smallIconURLString:smallIcon, largeIconURLString:largeIcon, aboutCourse:aboutTheCourse, courseDescription:courseDescription)
     }
-
 }
 
 extension _Course : JSONDecodable
