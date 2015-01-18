@@ -1,129 +1,67 @@
 
-#Lab
-The goal of these steps of the lab exercise is to demonstrate adding background saving of Core Data objects using data from a network call.
+#307: Core Data Threading: Lab Instructions
 
+Even though we've set up the project with multiple contexts, we're still not quite done implementing things correctly. It turns out, we're missing a few crucial calls that enable Core Data to properly protect access to data objects. It's likely to happen in your apps, so let's find out how to find and resolve the improper usage of the Core Data threading API.
 
-When you tap on a Course in the Course Catalog View, you'll be presented with a Course Detail View. The Coursera API provides many pieces of data for each course. We don't want to download all the course details at once as that could mean lots of unnecessary network downloads. The flow will basically be:
+### 1) Update Scheme Settings
 
-1. A learner taps on a course
-2. The app presents a new screen with what information is already present
-3. The detail view requests an update from the Course web service for updated data
-4. We download the data, and import it into Core Data
-5. We merge the saved data into the main thread
-6. Update the Main UI
+In Xcode, in the toolbar, select the CourseCatalog project, and select Edit Scheme in the pop menu.
 
-# Requesting Network data
+![](./3-Lab-Images/Xcode-Edit-Scheme.png)
 
-Just as there is a CatalogDataSource to handle the loading and requests for the CourseCatalog, we're going to put our requests in a CourseDataSource.
+In the edit scheme dialog, select the **Arguments** tab.
 
+Add a new **Argument Passed on Launch** by clicking the **+** button at the bottom. Enter the following as the complete argument value:
 
-Open the CourseDataSource.swift file, and you'll see a simple class. 
-
-We're going to need a CoreDataStack in order to perform data operations, so add a new property:
-
-
-	private let stack : CoreDataStack
+	-com.apple.CoreData.ConcurrencyDebug 1
 	
-and in the initializer, set the CoreDataStack to something useful:
+In iOS7, the Core Data team introduced this flag to help developers find improper usages of Core Data threading support in their apps. Enabling concurrency debugging for Core Data causes your app to crash when a thread assertion has been hit inside the Core Data framework. That is, when you are improperly using the Core Data threading API, and Core Data is able to assert that improper usage, your app will crash. So, how is this 'feature' helpful? This crash isn't necessarily a crash, per se, but an assertion. And most assertions in Objective C and Core Data are thrown exceptions. That means you can simply catch all exceptions when debugging your application and the debugger will land in the exact spot where the problem is being caused. 
 
-    init(course:Course) {
-    	self.stack = CoreDataStack()
-        self.course = course
-        super.init()
-    }
+### 2) Add an Exception Breakpoint
 
-Next, you're going to need a way to start the update process. Create a simple method called updateCourseDetails:
+Well, let's go ahead as make sure we're catching all exceptions in the debugger.
 
-	func updateCourseDatails(completion:(Course?) -> ()) {
+In Xcode, show the Breakpoint Navigator tab:
+
+![](./3-Lab-Images/Xcode-Show-Breakpoint-Navigator.png)
+
+The keyboard shortcut key is Cmd + 7.
+
+At the bottom, click on the **+** button, and select **Add Exception Breakpoint**
+
+![](./3-Lab-Images/Xcode-Add-Exception-Breakpoint.png)
+
+This should be enough to catch all exceptions that happen in your application. However you can limit the exceptions the debugger catches by right-clicking on the new Exception break point. Then select **Edit Breakpoint...**. In the Exceptions setting, select 'Objective-C'.
+
+![](./3-Lab-Images/Xcode-Exception-Breakpoint-Settings.png)
+
+###3) Build and Run ... and Crash
+
+Now, in this case, we're actually looking for crashes because of the Core Data concurrency debug flag.
+
+Build and run the app. Press the Load Courses button. The app should crash, and Xcode should be pointing you to some assembly. First, you'll need to look up the debug stack, and look for the highest stack that refers to your code. This should be the place that has triggered Core Data to crash since it's not correctly using threads.
+
+
+**In find, add**
+
+	context.performBlockAndWait {
 	}
 	
-Because we want to work asynchronously, we'll need call a completion block when the update is actually done.
-
-The URL you'll be using to fetch course details is nearly the same one used to fetch the course catalog:
-
-        https://api.coursera.org/api/catalog.v1/courses?id=\(id)&fields=largeIcon,smallIcon,shortDescription,aboutTheCourse
+The final piece of the puzzle in setting up Core Data to work with background 
         
-This API will return JSON data for which the app is ready to parse. You'll just have to set it up. Let's get to it!
+**In create, add**
 
-
-Accompanying the CourseDataSource.swift file is another file named Networking.swift. In this file is a small set of network functions to help with the task of sending a network request out and handling data. The function you'll use is called *apiRequest*. The apiRequest function also incorporates the idea of typing the resource at the end of a request. So, if we're asking for JSON data, we'll need to request a JSON Resource. The function for creating a jsonResource looks like:
-
-	func jsonResource<A>(path: String, method: Method, requestParameters: JSONValue, parse: JSONValue -> A?) -> Resource<A> 
-
-The last parameter can be tricky to understand. When this method gets the "resource", it'll run that result through the parse parameter, which happens to be a function. Here's a parse function to use in the CourseDataSource:
-
-    func parseJSON(json:JSONValue) -> Course?
-    {
-        return json										//1
-                >>- _Course.decodeObjects				//2
-                >>- mapSome								//3
-                >>- { $0.first }						//4
-                >>- CourseAdapter(stack: stack).adapt	//5
-    }
-    
-This entire parse function is simply performing a series of data transformations. Let's start at the top. Line 1 is the JSON parameter. The >>- operator is syntactic shorthand for the bind operation. It means "take the item on the left side, and if it's not nil, then pass it as a parameter to the function on the right." The \_Course.decodeObjects function takes a single parameter, and that is the json variable. The result of line 2 is passed into mapSome. Since decodeObjects returns [\_Course?]?, you'll want to remove any optionals from the result. mapSome does just that and returns a [\_Course]. Line 4 will take that nice filtered array, and return the first item in that array. Since we're expecting only 1 result from our API, this should always return an element. And finally, line 5 takes that single first element and coverts it to a Core Data object using the existing CourseAdapter class.
-
-
-Time to get back to requesting course data. Add this function to the CourseDataSource class
-
-    func requestCourse(id:Int, completion: (Course) -> ()) {
-
-		let courseResource = jsonResource("courses", .GET, .JSONNull, parseJSON)
+	context.performBlockAndWait {
 	}
 	
-The last parameter is the parseJSON function you just added. Since functions are first class citizens in swift, we can pass them around like this. This function will be used to convert the json to a Course Core Data object.
+**In save, add**
 
-Next we'll need that API URL and start to fill that in. Add this to the requestCourse function.
-
-    let baseURL = "https://api.coursera.org/api/catalog.v1/courses"
-    let queryString = "id=\(id)&fields=largeIcon,smallIcon,shortDescription,aboutTheCourse"
-	let courseURL = NSURL(string:"\(baseURL)?\(queryString)")!	
-
-The id from the parameter will be used to query the proper course.
-Finally, add this as the final line in the function:
-
-	apiRequest({ _ in }, courseURL, courseResource, defaultFailureHandler) { course in
-    	completion(Result(course))
+	context.performBlock {
 	}
-
-Data will now load from the network asyncronously. But we need to call this from somewhere with the proper course ID. Create this updateCourseDetails function in the CourseDataSource:
-
-	func updateCourseDetails(completion:(Course?) -> ()) {
-        let courseID = course?.remoteID.integerValue ?? 0
-        let context = stack.mainContext
-        requestCourse(courseID) { course in
-            context.performBlock {
-                completion(course)
-            }
-        }
-    }
-
-This function will grab the courseID from the course that was passed in as a parameter. After the course  has been downloaded, we can then call the completion block with the course. How does this get back to the UI?
-
-Back in the CourseViewController, add a property for the courseDataSource.
-
-	var courseDataSource : CourseDataSource?
 	
-Now, in the course property, we can connect the data source.
+**In adapt function, add**
 
-Change the course property to look like this:
-
-	var course: Course? {
-        didSet {
-            if let course = course {
-                courseDataSource = CourseDataSource(course:course)
-                courseDataSource?.updateCourseDetails(configureView)
-            }
-        }
-    }
-    
-Now, the configureView parameter is a reference to another function. This function matches the completion handler signature for the updateCourseDetails callback parameter, so this is allowed. Let's see what that function looks like:
-
-    func configureView(course:Course?) {
-        courseNameLabel?.text = course?.shortName
-        courseDescriptionLabel?.text = course?.name
-    }
-
-Add this to the CourseDetailsViewController.
-
----
+	context.performBlockAndWait {
+	}
+	
+And now you have an app that is performing its main data importing operations in the background. You're ready to start the challenges and getting your app to  display visual progress during import.
